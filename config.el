@@ -1,4 +1,4 @@
 ;;; .doom.d/config.el -*- lexical-binding: t; -*-
 
 ;; Place your private configuration here
-;;(setq doom-font (font-spec :family "Nerd NF" :size 15))
+(setq doom-font (font-spec :family "Hack Nerd Font" :size 15))
