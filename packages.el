@@ -7,3 +7,5 @@
 ;; (package! builtin-package :disable t)
 (package! ripgrep)
 (package! groovy-mode)
+(package! json-mode)
+(package! ssh-agency)
