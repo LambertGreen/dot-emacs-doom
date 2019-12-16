@@ -8,4 +8,5 @@
 (package! ripgrep)
 (package! groovy-mode)
 (package! json-mode)
+(package! powershell)
 (package! ssh-agency)
