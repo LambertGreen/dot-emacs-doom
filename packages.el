@@ -9,4 +9,5 @@
 (package! groovy-mode)
 (package! json-mode)
 (package! powershell)
+(package! ahk-mode)
 (package! ssh-agency)
