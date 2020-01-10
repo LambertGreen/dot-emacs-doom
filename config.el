@@ -3,7 +3,7 @@
 
 ;; Set find program
 (if (eq system-type 'windows-nt)
-    (setq find-program "~/scoop/shim/find.exe")
+    (setq find-program "~/scoop/shims/find.exe")
   )
 
 ;; Set font
