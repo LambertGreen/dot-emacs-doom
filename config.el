@@ -65,3 +65,17 @@
 (if (eq system-type 'windows-nt)
     (setq find-program "~/scoop/shims/find.exe")
   )
+
+;; Enable Evil motions to treat underscores as word delimeters
+;;
+;; For python
+(add-hook! 'python-mode-hook (modify-syntax-entry ?_ "w"))
+;; For ruby
+(add-hook! 'enh-ruby-mode-hook (modify-syntax-entry ?_ "w"))
+;; For Javascript
+(add-hook! 'js2-mode-hook (modify-syntax-entry ?_ "w"))
+
+;; Irony: set cdb order to use libclang first, then clang_complete
+(add-hook! irony-mode
+  (setq irony-cdb-compilation-databases '(irony-cdb-libclang
+                                          irony-cdb-clang-complete)))
