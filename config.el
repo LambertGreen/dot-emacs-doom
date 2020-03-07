@@ -74,8 +74,3 @@
 (add-hook! 'enh-ruby-mode-hook (modify-syntax-entry ?_ "w"))
 ;; For Javascript
 (add-hook! 'js2-mode-hook (modify-syntax-entry ?_ "w"))
-
-;; Irony: set cdb order to use libclang first, then clang_complete
-(add-hook! irony-mode
-  (setq irony-cdb-compilation-databases '(irony-cdb-libclang
-                                          irony-cdb-clang-complete)))
