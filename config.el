@@ -77,3 +77,9 @@
 (add-hook! 'enh-ruby-mode-hook (modify-syntax-entry ?_ "w"))
 ;; For Javascript
 (add-hook! 'js2-mode-hook (modify-syntax-entry ?_ "w"))
+
+;; Make Jedi to use Pyenv environment for our Python projects
+(after! lsp-mode
+  (setq lsp-pyls-plugins-jedi-use-pyenv-environment t)
+  )
+
