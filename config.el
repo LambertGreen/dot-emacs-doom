@@ -67,7 +67,11 @@
   )
 
 ;; Show trailing whitespace
-(setq-default show-trailing-whitespace t)
+;; Well, this unfortunately causes whitespace to be show in all buffers
+;; including terminal/shell bufffers -- which we really don't want.
+;; So commenting out for now.
+;; TODO: Enable ~show-trailing-whitespace~ for code buffers only.
+;; (setq-default show-trailing-whitespace t)
 
 ;; Enable Evil motions to treat underscores as word delimeters
 ;;
