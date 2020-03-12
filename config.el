@@ -66,6 +66,9 @@
     (setq find-program "~/scoop/shims/find.exe")
   )
 
+;; Show trailing whitespace
+(setq-default show-trailing-whitespace t)
+
 ;; Enable Evil motions to treat underscores as word delimeters
 ;;
 ;; For python
