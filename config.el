@@ -99,3 +99,7 @@
 ;;       (append projectile-project-root-files-bottom-up '(".projectile") nil)
 ;;       )
 ;;   )
+
+;; Associate file extensions to modes
+(add-to-list 'auto-mode-alist '("\\.yaml\\'" . yaml-mode))
+(add-to-list 'auto-mode-alist '("\\.manifest\\'" . json-mode))
