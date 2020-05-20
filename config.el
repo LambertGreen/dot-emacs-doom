@@ -66,6 +66,9 @@
     (setq find-program "~/scoop/shims/find.exe")
   )
 
+;; Treat .manifest files as json i.e open with json-mode
+(add-to-list 'auto-mode-alist '("\\.manifest\\'" . json-mode))
+
 ;; Enable Evil motions to treat underscores as word delimeters
 ;;
 ;; For python
