@@ -57,3 +57,5 @@
 (package! powershell)
 (package! ahk-mode)
 (package! ssh-agency)
+(package! dash-at-point)
+(package! vimrc-mode)

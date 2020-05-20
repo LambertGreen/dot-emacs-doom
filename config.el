@@ -38,7 +38,7 @@
 (setq doom-theme 'doom-one)
 
 ;; If you intend to use org, it is recommended you change this!
-(setq org-directory "~/org/")
+(setq org-directory "~/dev/my/notes/")
 
 ;; If you want to change the style of line numbers, change this to `relative' or
 ;; `nil' to disable it:
@@ -66,8 +66,12 @@
     (setq find-program "~/scoop/shims/find.exe")
   )
 
-;; Treat .manifest files as json i.e open with json-mode
-(add-to-list 'auto-mode-alist '("\\.manifest\\'" . json-mode))
+;; Show trailing whitespace
+;; Well, this unfortunately causes whitespace to be show in all buffers
+;; including terminal/shell bufffers -- which we really don't want.
+;; So commenting out for now.
+;; TODO: Enable ~show-trailing-whitespace~ for code buffers only.
+;; (setq-default show-trailing-whitespace t)
 
 ;; Enable Evil motions to treat underscores as word delimeters
 ;;
@@ -78,7 +82,24 @@
 ;; For Javascript
 (add-hook! 'js2-mode-hook (modify-syntax-entry ?_ "w"))
 
-;; Irony: set cdb order to use libclang first, then clang_complete
-(add-hook! irony-mode
-  (setq irony-cdb-compilation-databases '(irony-cdb-libclang
-                                          irony-cdb-clang-complete)))
+;; Make Jedi to use Pyenv environment for our Python projects
+(after! lsp-mode
+  (setq lsp-pyls-plugins-jedi-use-pyenv-environment t)
+  )
+
+;; Doom removes '.projectile' as a project root file, but we want
+;; to use it, so add it back.
+;; Note: I never got the below to work, but I have since started using git sub-projects
+;; and therefore do not need the below setting any longer.
+;;
+;; Leaving comment here for historical purposes.
+;;
+;; (after! projectile
+;;   (setq projectile-project-root-files-bottom-up
+;;       (append projectile-project-root-files-bottom-up '(".projectile") nil)
+;;       )
+;;   )
+
+;; Associate file extensions to modes
+(add-to-list 'auto-mode-alist '("\\.yaml\\'" . yaml-mode))
+(add-to-list 'auto-mode-alist '("\\.manifest\\'" . json-mode))
