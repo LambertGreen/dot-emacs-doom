@@ -44,6 +44,19 @@
 ;; `nil' to disable it:
 (setq display-line-numbers-type t)
 
+;; Enable mouse support in terminal
+(unless window-system
+  (require 'mouse)
+  (xterm-mouse-mode t)
+  (global-set-key [mouse-4] (lambda ()
+                              (interactive)
+                              (scroll-down 1)))
+  (global-set-key [mouse-5] (lambda ()
+                              (interactive)
+                              (scroll-up 1)))
+  (defun track-mouse (e))
+  (setq mouse-sel-mode t)
+)
 
 ;; Here are some additional functions/macros that could help you configure Doom:
 ;;
