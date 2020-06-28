@@ -83,6 +83,7 @@
 ;; e.g. CMD-H to hide window, etc.
 ;; 2. M-TAB for OrgMode completion can also be done using: C-M i
 ;; 3. M-RET for OrgMode new header can also be done using: C-c RET
+;; 4. M-H/L for OrgMode header promote/demote can also be done using: S-<<, S->>
 ;;
 ;; (if (eq system-type 'darwin)
 ;;   (setq mac-command-modifier 'meta)
@@ -130,3 +131,15 @@
 ;; Associate file extensions to modes
 (add-to-list 'auto-mode-alist '("\\.yaml\\'" . yaml-mode))
 (add-to-list 'auto-mode-alist '("\\.manifest\\'" . json-mode))
+
+;; Org-mode config
+;;
+;; Log DONE with timestamp
+(setq org-log-done 'time)
+
+(defun lgreen/org-mode-hook ()
+  (hl-fill-column-mode 0))
+(add-hook! 'org-mode-hook 'lgreen/org-mode-hook)
+
+;; Stop flyspell from stealing ~M-TAB~ from OrgMode
+(eval-after-load 'flyspell '(define-key flyspell-mode-map "\M-\t" nil))
