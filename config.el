@@ -137,11 +137,6 @@
 ;; Log DONE with timestamp
 (setq org-log-done 'time)
 
-(defun lgreen/org-mode-hook ()
-  (hl-fill-column-mode nil))
-
-(add-hook! 'org-mode-hook 'lgreen/org-mode-hook)
-
 ;; Stop flyspell from stealing ~M-TAB~ from OrgMode
 (eval-after-load 'flyspell '(define-key flyspell-mode-map "\M-\t" nil))
 
