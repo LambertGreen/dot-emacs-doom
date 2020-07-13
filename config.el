@@ -138,8 +138,14 @@
 (setq org-log-done 'time)
 
 (defun lgreen/org-mode-hook ()
-  (hl-fill-column-mode 0))
+  (hl-fill-column-mode nil))
+
 (add-hook! 'org-mode-hook 'lgreen/org-mode-hook)
 
 ;; Stop flyspell from stealing ~M-TAB~ from OrgMode
 (eval-after-load 'flyspell '(define-key flyspell-mode-map "\M-\t" nil))
+
+;; Workaround ripgrep issue on Windows
+(if (eq system-type 'windows-nt)
+    (setq ripgrep-arguments '("--path-separator /"))
+  )
