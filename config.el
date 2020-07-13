@@ -91,7 +91,7 @@
 
 ;; Set find program
 (if (eq system-type 'windows-nt)
-    (setq find-program "~/scoop/shims/find.exe")
+    (setq find-program (expand-file-name "~/scoop/shims/find.exe"))
   )
 
 ;; Show trailing whitespace
