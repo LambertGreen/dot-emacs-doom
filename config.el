@@ -91,7 +91,7 @@
 
 ;; Set find program
 (if (eq system-type 'windows-nt)
-    (setq find-program "~/scoop/shims/find.exe")
+    (setq find-program (expand-file-name "~/scoop/shims/find.exe"))
   )
 
 ;; Show trailing whitespace
@@ -193,14 +193,14 @@
   (when (member (org-get-todo-state) org-todo-keywords-1)
     (lgreen/insert-created-timestamp)))
 
-;; Disable fill-column for org-mode since it handles wrapping of text just fine.
-(defun lgreen/org-mode-hook ()
-  (hl-fill-column-mode 0))
-(add-hook! 'org-mode-hook 'lgreen/org-mode-hook)
-
 ;; Stop flyspell from stealing ~M-TAB~ from OrgMode
 (eval-after-load 'flyspell '(define-key flyspell-mode-map "\M-\t" nil))
 
 ;; Transparency
 (set-frame-parameter (selected-frame) 'alpha '(95 95))
 (add-to-list 'default-frame-alist '(alpha . (95 . 95)))
+
+;; Workaround ripgrep issue on Windows
+(if (eq system-type 'windows-nt)
+    (setq ripgrep-arguments '("--path-separator /"))
+  )
