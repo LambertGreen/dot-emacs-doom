@@ -54,7 +54,7 @@
   (global-set-key [mouse-5] (lambda ()
                               (interactive)
                               (scroll-up 1)))
-  (defun track-mouse (e))
+  (defun track-mouse (_))
   (setq mouse-sel-mode t)
 )
 
@@ -134,12 +134,73 @@
 
 ;; Org-mode config
 ;;
-;; Log DONE with timestamp
-(setq org-log-done 'time)
+(after! org
+  ;; Use org-expiry to have timestamps automatically created for tasks
+  (use-package! org-expiry
+    :config
+    (setq org-expiry-inactive-timestamps t))
 
+  ;; Log DONE with timestamp
+  (setq org-log-done 'time)
+
+  ;; Update the default Doom "todo" to use TODO instead of [ ]
+  (setq org-capture-templates
+    '(("t" "todo" entry
+      (file+headline +org-capture-todo-file "Inbox")
+      "* TODO %?\n%i\n%a" :prepend t)
+    ("n" "notes" entry
+      (file+headline +org-capture-notes-file "Inbox")
+      "* %u %?\n%i\n%a" :prepend t)
+    ("j" "Journal" entry
+      (file+olp+datetree +org-capture-journal-file)
+      "* %U %?\n%i\n%a" :prepend t)
+    ("p" "Templates for projects")
+    ("pt" "Project-local todo" entry
+      (file+headline +org-capture-project-todo-file "Inbox")
+      "* TODO %?\n%i\n%a" :prepend t)
+    ("pn" "Project-local notes" entry
+      (file+headline +org-capture-project-notes-file "Inbox")
+      "* %U %?\n%i\n%a" :prepend t)
+    ("pc" "Project-local changelog" entry
+      (file+headline +org-capture-project-changelog-file "Unreleased")
+      "* %U %?\n%i\n%a" :prepend t)
+    ("o" "Centralized templates for projects")
+    ("ot" "Project todo" entry #'+org-capture-central-project-todo-file "* TODO %?\n %i\n %a" :heading "Tasks" :prepend nil)
+    ("on" "Project notes" entry #'+org-capture-central-project-notes-file "* %U %?\n %i\n %a" :heading "Notes" :prepend t)
+    ("oc" "Project changelog" entry #'+org-capture-central-project-changelog-file "* %U %?\n %i\n %a" :heading "Changelog" :prepend t)))
+  )
+
+;; Whenever a TODO entry is created, we want a timestamp
+;;
+(defun lgreen/insert-created-timestamp()
+  (interactive)
+  "Insert a CREATED property using org-expiry.el for TODO entries"
+  (org-expiry-insert-created)
+  (org-back-to-heading)
+  (org-end-of-line)
+  )
+
+;; Advice org-insert-todo-heading to insert a created timestamp using org-expiry
+(defadvice org-insert-todo-heading (after lgreen/created-timestamp-advice activate)
+  "Insert a CREATED property using org-expiry.el for TODO entries"
+  (lgreen/insert-created-timestamp))
+
+;; Advice org-capture to insert a created timestamp using org-expiry
+(defadvice org-capture (after lgreen/created-timestamp-advice activate)
+  "Insert a CREATED property using org-expiry.el for TODO entries"
+  ; Test if the captured entry is a TODO, if so insert the created
+  ; timestamp property, otherwise ignore
+  (when (member (org-get-todo-state) org-todo-keywords-1)
+    (lgreen/insert-created-timestamp)))
+
+;; Disable fill-column for org-mode since it handles wrapping of text just fine.
 (defun lgreen/org-mode-hook ()
   (hl-fill-column-mode 0))
 (add-hook! 'org-mode-hook 'lgreen/org-mode-hook)
 
 ;; Stop flyspell from stealing ~M-TAB~ from OrgMode
 (eval-after-load 'flyspell '(define-key flyspell-mode-map "\M-\t" nil))
+
+;; Transparency
+(set-frame-parameter (selected-frame) 'alpha '(95 95))
+(add-to-list 'default-frame-alist '(alpha . (95 . 95)))
