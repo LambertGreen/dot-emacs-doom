@@ -204,3 +204,10 @@
 (if (eq system-type 'windows-nt)
     (setq ripgrep-arguments '("--path-separator /"))
   )
+
+;; Influence Tramp to use a login shell so that ~/.profile is sourced on remote
+;; host resulting in $PATH being setup correctly.
+;;
+(after! tramp
+  (add-to-list 'tramp-remote-path 'tramp-own-remote-path)
+)
