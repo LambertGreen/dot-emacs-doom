@@ -61,3 +61,4 @@
 (package! vimrc-mode)
 (package! apples-mode)
 (package! realgud)
+(package! typit)
