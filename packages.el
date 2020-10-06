@@ -60,3 +60,6 @@
 (package! dash-at-point)
 (package! yaml-mode)
 (package! vimrc-mode)
+(package! apples-mode)
+(package! realgud)
+(package! typit)

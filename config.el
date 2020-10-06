@@ -44,6 +44,19 @@
 ;; `nil' to disable it:
 (setq display-line-numbers-type t)
 
+;; Enable mouse support in terminal
+(unless window-system
+  (require 'mouse)
+  (xterm-mouse-mode t)
+  (global-set-key [mouse-4] (lambda ()
+                              (interactive)
+                              (scroll-down 1)))
+  (global-set-key [mouse-5] (lambda ()
+                              (interactive)
+                              (scroll-up 1)))
+  (defun track-mouse (_))
+  (setq mouse-sel-mode t)
+)
 
 ;; Here are some additional functions/macros that could help you configure Doom:
 ;;
@@ -61,9 +74,24 @@
 ;; You can also try 'gd' (or 'C-c g d') to jump to their definition and see how
 ;; they are implemented.
 
+;; On MacOS use CMD key as Meta key since it is easier to press Meta for the following:
+;; 1. M-TAB for OrgMode completion
+;; 2. M-RET for OrgMode insert heading
+;; 3. M-H/L for OrgMode heading promotion/demotion
+;; UPDATE: 6/27/20: Commenting out for the following reasons:
+;; 1. It's nice to be able to use the CMD key as the CMD key for OS interactions
+;; e.g. CMD-H to hide window, etc.
+;; 2. M-TAB for OrgMode completion can also be done using: C-M i
+;; 3. M-RET for OrgMode new header can also be done using: C-c RET
+;; 4. M-H/L for OrgMode header promote/demote can also be done using: S-<<, S->>
+;;
+;; (if (eq system-type 'darwin)
+;;   (setq mac-command-modifier 'meta)
+;;   (setq mac-option-modifier 'meta))
+
 ;; Set find program
 (if (eq system-type 'windows-nt)
-    (setq find-program "~/scoop/shims/find.exe")
+    (setq find-program (expand-file-name "~/scoop/shims/find.exe"))
   )
 
 ;; Show trailing whitespace
@@ -103,3 +131,92 @@
 ;; Associate file extensions to modes
 (add-to-list 'auto-mode-alist '("\\.yaml\\'" . yaml-mode))
 (add-to-list 'auto-mode-alist '("\\.manifest\\'" . json-mode))
+
+;; Org-mode config
+;;
+(after! org
+  ;; Use org-expiry to have timestamps automatically created for tasks
+  (use-package! org-expiry
+    :config
+    (setq org-expiry-inactive-timestamps t))
+
+  ;; Log DONE with timestamp
+  (setq org-log-done 'time)
+
+  ;; Update the default Doom "todo" to use TODO instead of [ ]
+  (setq org-capture-templates
+    '(("t" "todo" entry
+      (file+headline +org-capture-todo-file "Inbox")
+      "* TODO %?\n%i\n%a" :prepend t)
+    ("n" "notes" entry
+      (file+headline +org-capture-notes-file "Inbox")
+      "* %u %?\n%i\n%a" :prepend t)
+    ("j" "Journal" entry
+      (file+olp+datetree +org-capture-journal-file)
+      "* %U %?\n%i\n%a" :prepend t)
+    ("p" "Templates for projects")
+    ("pt" "Project-local todo" entry
+      (file+headline +org-capture-project-todo-file "Inbox")
+      "* TODO %?\n%i\n%a" :prepend t)
+    ("pn" "Project-local notes" entry
+      (file+headline +org-capture-project-notes-file "Inbox")
+      "* %U %?\n%i\n%a" :prepend t)
+    ("pc" "Project-local changelog" entry
+      (file+headline +org-capture-project-changelog-file "Unreleased")
+      "* %U %?\n%i\n%a" :prepend t)
+    ("o" "Centralized templates for projects")
+    ("ot" "Project todo" entry #'+org-capture-central-project-todo-file "* TODO %?\n %i\n %a" :heading "Tasks" :prepend nil)
+    ("on" "Project notes" entry #'+org-capture-central-project-notes-file "* %U %?\n %i\n %a" :heading "Notes" :prepend t)
+    ("oc" "Project changelog" entry #'+org-capture-central-project-changelog-file "* %U %?\n %i\n %a" :heading "Changelog" :prepend t)))
+  )
+
+;; Whenever a TODO entry is created, we want a timestamp
+;;
+(defun lgreen/insert-created-timestamp()
+  (interactive)
+  "Insert a CREATED property using org-expiry.el for TODO entries"
+  (org-expiry-insert-created)
+  (org-back-to-heading)
+  (org-end-of-line)
+  )
+
+;; Advice org-insert-todo-heading to insert a created timestamp using org-expiry
+(defadvice org-insert-todo-heading (after lgreen/created-timestamp-advice activate)
+  "Insert a CREATED property using org-expiry.el for TODO entries"
+  (lgreen/insert-created-timestamp))
+
+;; Advice org-capture to insert a created timestamp using org-expiry
+(defadvice org-capture (after lgreen/created-timestamp-advice activate)
+  "Insert a CREATED property using org-expiry.el for TODO entries"
+  ; Test if the captured entry is a TODO, if so insert the created
+  ; timestamp property, otherwise ignore
+  (when (member (org-get-todo-state) org-todo-keywords-1)
+    (lgreen/insert-created-timestamp)))
+
+;; Stop flyspell from stealing ~M-TAB~ from OrgMode
+(eval-after-load 'flyspell '(define-key flyspell-mode-map "\M-\t" nil))
+
+;; Transparency
+(set-frame-parameter (selected-frame) 'alpha '(95 95))
+(add-to-list 'default-frame-alist '(alpha . (95 . 95)))
+
+;; Workaround ripgrep issue on Windows
+(if (eq system-type 'windows-nt)
+    (setq ripgrep-arguments '("--path-separator /"))
+  )
+
+;; Influence Tramp to use a login shell so that ~/.profile is sourced on remote
+;; host resulting in $PATH being setup correctly.
+;;
+(after! tramp
+  (add-to-list 'tramp-remote-path 'tramp-own-remote-path)
+)
+
+;; macOS: Change dark/light theme
+(if (eq system-type 'darwin)
+    (add-hook 'ns-system-appearance-change-functions
+        #'(lambda (appearance)
+                (mapc #'disable-theme custom-enabled-themes)
+                (pcase appearance
+                        ('light (load-theme 'doom-one-light t))
+                        ('dark (load-theme 'doom-one t))))))
