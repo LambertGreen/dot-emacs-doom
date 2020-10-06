@@ -58,4 +58,5 @@
 (package! ahk-mode)
 (package! ssh-agency)
 (package! dash-at-point)
+(package! yaml-mode)
 (package! vimrc-mode)
