@@ -249,3 +249,14 @@
   (setenv "PATH" (mapconcat #'identity exec-path path-separator))
   (message "exec-path and process-environment synchronised"))
 
+;; LSP Related settings
+;;
+;; Set cache directory for ccls to be under home directory rather than polutting project directories
+(if (eq system-type 'darwin)
+    (setq ccls-initialization-options
+          `(:cache (:directory "/tmp/ccls-cache"))))
+
+;; Set path to clangd (required when using clangd as cpp lsp)
+(if (eq system-type 'darwin)
+    (setq lsp-clients-clangd-executable "/usr/local/Cellar/llvm/10.0.1_1/bin/clangd"))
+
