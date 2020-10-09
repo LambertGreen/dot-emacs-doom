@@ -40,6 +40,9 @@
 ;; If you intend to use org, it is recommended you change this!
 (setq org-directory "~/dev/my/notes/")
 
+;; Set projects directory
+(setq projectile-project-search-path '("~/dev/my/" "~/dev/pub/" "~/dev/work/"))
+
 ;; If you want to change the style of line numbers, change this to `relative' or
 ;; `nil' to disable it:
 (setq display-line-numbers-type t)
