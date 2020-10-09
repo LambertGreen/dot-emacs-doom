@@ -231,3 +231,21 @@
                 (pcase appearance
                         ('light (load-theme 'doom-one-light t))
                         ('dark (load-theme 'doom-one t))))))
+
+;; Function to add to the Emacs path - swiped from https://gitlab.com/xeijin-dev/doom-config/blob/master/config.org
+(defun lgreen/add-to-emacs-path (append-path &rest path)
+  "add PATH to both emacs own `exec-path' and to the `PATH' inherited by emacs from the OS (aka `process-environment').
+  APPEND-PATH should be non-nil if you want the added path to take priority over existing paths
+
+  this does not modify the actual OS `PATH' just the two emacs internal variables which deal with paths:
+
+  `exec-path' is used when executables are called from emacs directly
+  `process-environment' is used when executables are called via the `shell'"
+
+  (dolist (p path)
+    (add-to-list 'exec-path p append-path))
+
+  ;; update `process-environment' with whatever is in `exec-path' right now
+  (setenv "PATH" (mapconcat #'identity exec-path path-separator))
+  (message "exec-path and process-environment synchronised"))
+
