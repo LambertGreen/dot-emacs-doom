@@ -62,3 +62,5 @@
 (package! apples-mode)
 (package! realgud)
 (package! typit)
+(package! p4
+ :recipe (:host github :repo "gareth-rees/p4.el"))
