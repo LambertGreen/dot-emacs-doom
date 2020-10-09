@@ -260,3 +260,11 @@
 (if (eq system-type 'darwin)
     (setq lsp-clients-clangd-executable "/usr/local/Cellar/llvm/10.0.1_1/bin/clangd"))
 
+;; macOS: Set locate to use unix locate command instead of `mdfind` because `mdfind` is not indexing
+;; all dev files.
+;; TODO: check if 'mdfind' can be configured to work better?
+;; TODO: check if 'locate.udpatedb' is run periodically by default on macOS.
+(after! ivy
+  (if (eq system-type 'darwin)
+      (setq counsel-locate-cmd 'counsel-locate-cmd-noregex)))
+
