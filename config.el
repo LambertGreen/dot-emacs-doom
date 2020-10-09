@@ -268,3 +268,5 @@
   (if (eq system-type 'darwin)
       (setq counsel-locate-cmd 'counsel-locate-cmd-noregex)))
 
+;; Enable gravatars
+(setq magit-revision-show-gravatars '("^Author:     " . "^Commit:     "))
