@@ -32,6 +32,14 @@
      doom-font (font-spec :family "Hack NF" :size 15)
      ))
 
+;; Set window position and size
+;; TODO: This code works when evaluated after Emacs start, but does not result
+;; in the desired view on startup.
+(if (eq system-type 'darwin)
+    (when window-system
+      (set-frame-position (selected-frame) 438 261)
+      (set-frame-size (selected-frame) 185 47)))
+
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. These are the defaults.
