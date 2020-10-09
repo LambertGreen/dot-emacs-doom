@@ -45,7 +45,7 @@
 ;; `load-theme' function. These are the defaults.
 (setq doom-theme 'doom-one)
 
-;; If you intend to use org, it is recommended you change this!
+;; Set org directory
 (setq org-directory "~/dev/my/notes/")
 
 ;; Set projects directory
@@ -101,6 +101,7 @@
 ;;   (setq mac-option-modifier 'meta))
 
 ;; Set find program
+;; TODO: Check if fd can be used since it so much faster.
 (if (eq system-type 'windows-nt)
     (setq find-program (expand-file-name "~/scoop/shims/find.exe"))
   )
