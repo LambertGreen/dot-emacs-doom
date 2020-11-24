@@ -63,5 +63,6 @@
 (package! apples-mode)
 (package! realgud)
 (package! typit)
-(package! p4
- :recipe (:host github :repo "gareth-rees/p4.el"))
+(package! p4 :recipe (:host github :repo "gareth-rees/p4.el"))
+(package! speed-type)
+(package! jenv :recipe (:host github :repo "shellbj/jenv.el"))
