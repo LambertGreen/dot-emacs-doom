@@ -21,15 +21,15 @@
 ;; (setq doom-font (font-spec :family "monospace" :size 14))
 (if (eq system-type 'gnu/linux)
     (setq
-     doom-font (font-spec :family "Hack Nerd Font" :size 15)
+     doom-font (font-spec :family "Hack Nerd Font" :size 13)
      ))
 (if (eq system-type 'darwin)
     (setq
-     doom-font (font-spec :family "Hack Nerd Font" :size 15)
+     doom-font (font-spec :family "Hack Nerd Font" :size 13)
      ))
 (if (eq system-type 'windows-nt)
     (setq
-     doom-font (font-spec :family "Hack NF" :size 15)
+     doom-font (font-spec :family "Hack NF" :size 13)
      ))
 
 ;; Set window position and size
