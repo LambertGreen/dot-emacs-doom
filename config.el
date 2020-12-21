@@ -107,14 +107,10 @@
   )
 
 ;; Show trailing whitespace
-;; So commenting out for now.
-(setq-default show-trailing-whitespace t)
-(add-hook 'comint-mode-hook
-          '(lambda () (setq show-trailing-whitespace nil)))
-(add-hook 'term-mode-hook
-          '(lambda () (setq show-trailing-whitespace nil)))
-(add-hook 'vterm-mode-hook
-          '(lambda () (setq show-trailing-whitespace nil)))
+(add-hook 'prog-mode-hook
+          '(lambda () (setq show-trailing-whitespace t)))
+(add-hook 'org-mode-hook
+          '(lambda () (setq show-trailing-whitespace t)))
 
 ;; Enable Evil motions to treat underscores as word delimeters
 ;;
