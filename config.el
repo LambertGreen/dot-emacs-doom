@@ -126,19 +126,6 @@
   (setq lsp-pyls-plugins-jedi-use-pyenv-environment t)
   )
 
-;; Doom removes '.projectile' as a project root file, but we want
-;; to use it, so add it back.
-;; Note: I never got the below to work, but I have since started using git sub-projects
-;; and therefore do not need the below setting any longer.
-;;
-;; Leaving comment here for historical purposes.
-;;
-;; (after! projectile
-;;   (setq projectile-project-root-files-bottom-up
-;;       (append projectile-project-root-files-bottom-up '(".projectile") nil)
-;;       )
-;;   )
-
 ;; Associate file extensions to modes
 (add-to-list 'auto-mode-alist '("\\.yaml\\'" . yaml-mode))
 (add-to-list 'auto-mode-alist '("\\.manifest\\'" . json-mode))
