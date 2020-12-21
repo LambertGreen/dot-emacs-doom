@@ -107,11 +107,14 @@
   )
 
 ;; Show trailing whitespace
-;; Well, this unfortunately causes whitespace to be show in all buffers
-;; including terminal/shell bufffers -- which we really don't want.
 ;; So commenting out for now.
-;; TODO: Enable ~show-trailing-whitespace~ for code buffers only.
-;; (setq-default show-trailing-whitespace t)
+(setq-default show-trailing-whitespace t)
+(add-hook 'comint-mode-hook
+          '(lambda () (setq show-trailing-whitespace nil)))
+(add-hook 'term-mode-hook
+          '(lambda () (setq show-trailing-whitespace nil)))
+(add-hook 'vterm-mode-hook
+          '(lambda () (setq show-trailing-whitespace nil)))
 
 ;; Enable Evil motions to treat underscores as word delimeters
 ;;
