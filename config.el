@@ -106,12 +106,6 @@
     (setq find-program (expand-file-name "~/scoop/shims/find.exe"))
   )
 
-;; Show trailing whitespace
-(add-hook 'prog-mode-hook
-          '(lambda () (setq show-trailing-whitespace t)))
-(add-hook 'org-mode-hook
-          '(lambda () (setq show-trailing-whitespace t)))
-
 ;; Enable Evil motions to treat underscores as word delimeters
 ;;
 ;; For python
