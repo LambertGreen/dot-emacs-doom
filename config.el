@@ -251,3 +251,13 @@
 
 ;; Enable gravatars
 (setq magit-revision-show-gravatars '("^Author:     " . "^Commit:     "))
+
+;; Microsoft WSL: Enable opening URLs in Windows browser
+(when (and (eq system-type 'gnu/linux)
+           (string-match
+            "Linux.*microsoft.*"
+            (shell-command-to-string "uname -a")))
+  (setq
+   browse-url-generic-program  "/mnt/c/Windows/System32/cmd.exe"
+   browse-url-generic-args     '("/c" "start")
+   browse-url-browser-function #'browse-url-generic))
