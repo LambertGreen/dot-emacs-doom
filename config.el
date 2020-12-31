@@ -120,3 +120,9 @@
 ;; Associate file extensions to modes
 (add-to-list 'auto-mode-alist '("\\.yaml\\'" . yaml-mode))
 (add-to-list 'auto-mode-alist '("\\.manifest\\'" . json-mode))
+;; Set english dictionary words file for company-ispell
+;; Only required on Windows.
+(if (eq system-type 'windows-nt)
+  (after! ispell
+    (setq ispell-alternate-dictionary "~/.doom.d/english-words.txt")
+    ))
