@@ -59,3 +59,5 @@
 (package! ssh-agency)
 (package! dash-at-point)
 (package! vimrc-mode)
+(package! yaml-mode)
+(package! pdf-tools)
