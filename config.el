@@ -79,6 +79,10 @@
     (setq find-program "~/scoop/shims/find.exe")
   )
 
+;; Set exec path
+(if (eq system-type 'windows-nt)
+  (setq exec-path (cons "c:/Users/Lambert/scoop/shims/" exec-path)))
+
 ;; Show trailing whitespace
 ;; Well, this unfortunately causes whitespace to be show in all buffers
 ;; including terminal/shell bufffers -- which we really don't want.
