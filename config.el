@@ -118,8 +118,11 @@
 ;;   )
 
 ;; Associate file extensions to modes
-(add-to-list 'auto-mode-alist '("\\.yaml\\'" . yaml-mode))
+(add-to-list 'auto-mode-alist '("\\.(yaml|yml)\\'" . yaml-mode))
 (add-to-list 'auto-mode-alist '("\\.manifest\\'" . json-mode))
+(add-to-list 'auto-mode-alist '("\\.gitconfig\\'" . gitconfig-mode))
+(add-to-list 'auto-mode-alist '("\\.gitignore\\'" . gitignore-mode))
+
 ;; Set english dictionary words file for company-ispell
 ;; Only required on Windows.
 (if (eq system-type 'windows-nt)
