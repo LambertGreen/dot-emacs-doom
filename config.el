@@ -209,8 +209,12 @@
 (eval-after-load 'flyspell '(define-key flyspell-mode-map "\M-\t" nil))
 
 ;; Transparency
-(set-frame-parameter (selected-frame) 'alpha '(95 95))
-(add-to-list 'default-frame-alist '(alpha . (95 . 95)))
+;;
+;; Taking a break from using transparency
+;; Comment out below to enable it again.
+;;
+;; (set-frame-parameter (selected-frame) 'alpha '(95 95))
+;; (add-to-list 'default-frame-alist '(alpha . (95 . 95)))
 
 ;; Workaround ripgrep issue on Windows
 (if (eq system-type 'windows-nt)
