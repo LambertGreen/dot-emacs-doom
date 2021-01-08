@@ -21,15 +21,15 @@
 ;; (setq doom-font (font-spec :family "monospace" :size 14))
 (if (eq system-type 'gnu/linux)
     (setq
-     doom-font (font-spec :family "Hack Nerd Font" :size 13)
+     doom-font (font-spec :family "Iosevka Nerd Font" :size 13)
      ))
 (if (eq system-type 'darwin)
     (setq
-     doom-font (font-spec :family "Hack Nerd Font" :size 13)
+     doom-font (font-spec :family "Iosevka Nerd Font" :size 13)
      ))
 (if (eq system-type 'windows-nt)
     (setq
-     doom-font (font-spec :family "Hack NF" :size 13)
+     doom-font (font-spec :family "Iosevka NF" :size 13)
      ))
 
 ;; Set window position and size
@@ -106,6 +106,17 @@
     (setq find-program (expand-file-name "~/scoop/shims/find.exe"))
   )
 
+;; Set exec path
+(if (eq system-type 'windows-nt)
+  (setq exec-path (cons "c:/Users/Lambert/scoop/shims/" exec-path)))
+
+;; Show trailing whitespace
+;; Well, this unfortunately causes whitespace to be show in all buffers
+;; including terminal/shell bufffers -- which we really don't want.
+;; So commenting out for now.
+;; TODO: Enable ~show-trailing-whitespace~ for code buffers only.
+;; (setq-default show-trailing-whitespace t)
+
 ;; Enable Evil motions to treat underscores as word delimeters
 ;;
 ;; For python
@@ -121,8 +132,17 @@
   )
 
 ;; Associate file extensions to modes
-(add-to-list 'auto-mode-alist '("\\.yaml\\'" . yaml-mode))
+(add-to-list 'auto-mode-alist '("\\.(yaml|yml)\\'" . yaml-mode))
 (add-to-list 'auto-mode-alist '("\\.manifest\\'" . json-mode))
+(add-to-list 'auto-mode-alist '("\\.gitconfig\\'" . gitconfig-mode))
+(add-to-list 'auto-mode-alist '("\\.gitignore\\'" . gitignore-mode))
+
+;; Set english dictionary words file for company-ispell
+;; Only required on Windows.
+(if (eq system-type 'windows-nt)
+  (after! ispell
+    (setq ispell-alternate-dictionary "~/.doom.d/english-words.txt")
+    ))
 
 ;; Org-mode config
 ;;
@@ -189,7 +209,10 @@
 (eval-after-load 'flyspell '(define-key flyspell-mode-map "\M-\t" nil))
 
 ;; Transparency
-;; TODO: Decide whether you want transparency back or not
+;;
+;; Taking a break from using transparency
+;; Comment out below to enable it again.
+;;
 ;; (set-frame-parameter (selected-frame) 'alpha '(95 95))
 ;; (add-to-list 'default-frame-alist '(alpha . (95 . 95)))
 
@@ -252,3 +275,16 @@
 
 ;; Enable gravatars
 (setq magit-revision-show-gravatars '("^Author:     " . "^Commit:     "))
+
+;; Microsoft WSL: Enable opening URLs in Windows browser
+(when (and (eq system-type 'gnu/linux)
+           (string-match
+            "Linux.*microsoft.*"
+            (shell-command-to-string "uname -a")))
+  (setq
+   browse-url-generic-program  "/mnt/c/Windows/System32/cmd.exe"
+   browse-url-generic-args     '("/c" "start")
+   browse-url-browser-function #'browse-url-generic))
+
+;; Magit hide trailing carriage returns
+(setq magit-diff-hide-trailing-cr-characters t)
