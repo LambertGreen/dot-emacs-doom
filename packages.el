@@ -67,3 +67,4 @@
 (package! speed-type)
 (package! jenv :recipe (:host github :repo "shellbj/jenv.el"))
 (package! clang-format)
+(package! keychain-environment :recipe (:host github :repo "LambertGreen/keychain-environment"))
