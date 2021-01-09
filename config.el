@@ -21,15 +21,15 @@
 ;; (setq doom-font (font-spec :family "monospace" :size 14))
 (if (eq system-type 'gnu/linux)
     (setq
-     doom-font (font-spec :family "Hack Nerd Font" :size 13)
+     doom-font (font-spec :family "Iosevka Nerd Font" :size 13)
      ))
 (if (eq system-type 'darwin)
     (setq
-     doom-font (font-spec :family "Hack Nerd Font" :size 13)
+     doom-font (font-spec :family "Iosevka Nerd Font" :size 13)
      ))
 (if (eq system-type 'windows-nt)
     (setq
-     doom-font (font-spec :family "Hack NF" :size 13)
+     doom-font (font-spec :family "Iosevka NF" :size 13)
      ))
 
 ;; Set window position and size
@@ -288,3 +288,6 @@
    browse-url-generic-program  "/mnt/c/Windows/System32/cmd.exe"
    browse-url-generic-args     '("/c" "start")
    browse-url-browser-function #'browse-url-generic))
+
+;; Magit hide trailing carriage returns
+(setq magit-diff-hide-trailing-cr-characters t)
