@@ -141,7 +141,7 @@
 ;; Only required on Windows.
 (if (eq system-type 'windows-nt)
   (after! ispell
-    (setq ispell-alternate-dictionary "~/.doom.d/english-words.txt")
+    (setq ispell-alternate-dictionary "~/.ispell/english-words.txt")
     ))
 
 ;; Org-mode config
@@ -210,11 +210,14 @@
 
 ;; Transparency
 ;;
-;; Taking a break from using transparency
-;; Comment out below to enable it again.
-;;
-;; (set-frame-parameter (selected-frame) 'alpha '(95 95))
-;; (add-to-list 'default-frame-alist '(alpha . (95 . 95)))
+(set-frame-parameter (selected-frame) 'alpha '(97 97))
+(add-to-list 'default-frame-alist '(alpha . (97 . 97)))
+
+;; Set transparency of emacs
+ (defun transparency (value)
+   "Sets the transparency of the frame window. 0=transparent/100=opaque"
+   (interactive "nTransparency Value 0 - 100 opaque:")
+   (set-frame-parameter (selected-frame) 'alpha value))
 
 ;; Workaround ripgrep issue on Windows
 (if (eq system-type 'windows-nt)
