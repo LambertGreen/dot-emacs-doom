@@ -288,3 +288,8 @@
 
 ;; Magit hide trailing carriage returns
 (setq magit-diff-hide-trailing-cr-characters t)
+
+;; TODO: Do we really need the 'keychain' package?
+;; I can't tell... I just started Emacs and pulling from a remote Git repo
+;; is not resulting in a prompt for the SSH key showing.
+(keychain-refresh-environment)
