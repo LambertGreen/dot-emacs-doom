@@ -141,7 +141,7 @@
 ;; Only required on Windows.
 (if (eq system-type 'windows-nt)
   (after! ispell
-    (setq ispell-alternate-dictionary "~/.doom.d/english-words.txt")
+    (setq ispell-alternate-dictionary "~/.ispell/english-words.txt")
     ))
 
 ;; Org-mode config
