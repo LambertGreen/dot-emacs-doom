@@ -291,3 +291,12 @@
 
 ;; Magit hide trailing carriage returns
 (setq magit-diff-hide-trailing-cr-characters t)
+
+;; TODO: Fix ahk-comment-block-dwim. The below is not yet working
+(after! ahk-mode
+  (defun ahk-comment-block-dwim (arg)
+    "Comment or uncomment current line or region using block notation.
+  For details, see `comment-dwim'."
+    (interactive "*P")
+    (require 'newcomment)
+    (ahk-comment-dwim)))
