@@ -63,3 +63,4 @@
 (package! apples-mode)
 (package! realgud)
 (package! typit)
+(package! bats-mode)
