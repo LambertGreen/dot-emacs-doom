@@ -68,3 +68,4 @@
 (package! clang-format)
 (package! keychain-environment :recipe (:host github :repo "LambertGreen/keychain-environment"))
 (package! git-link :recipe (:host github :repo "sshaw/git-link"))
+(package! bats-mode)
