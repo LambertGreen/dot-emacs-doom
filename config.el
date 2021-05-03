@@ -296,3 +296,14 @@
 ;; I can't tell... I just started Emacs and pulling from a remote Git repo
 ;; is not resulting in a prompt for the SSH key showing.
 (keychain-refresh-environment)
+
+;; Make the frame title include the project name
+;; Allows for easy switching to Emacs frame by project name
+(setq frame-title-format
+      '(""
+        "%b"
+        (:eval
+         (let ((project-name (projectile-project-name)))
+           (unless (string= "-" project-name)
+             (format " in [%s]" project-name))))))
+
