@@ -257,6 +257,14 @@
   (setenv "PATH" (mapconcat #'identity exec-path path-separator))
   (message "exec-path and process-environment synchronised"))
 
+;; Setup Homebrew related settings
+;;
+(when (eq system-type 'darwin)
+    (defvar homebrew-prefix)
+    (if (file-directory-p "/opt/homebrew/")
+        (setq homebrew-prefix "/opt/homebrew/")
+        (setq homebrew-prefix "/usr/local/")))
+
 ;; LSP Related settings
 ;;
 ;; Set cache directory for ccls to be under home directory rather than polutting project directories
@@ -266,7 +274,7 @@
 
 ;; Set path to clangd (required when using clangd as cpp lsp)
 (if (eq system-type 'darwin)
-    (setq lsp-clients-clangd-executable "/usr/local/opt/llvm/bin/clangd"))
+    (setq lsp-clients-clangd-executable (concat homebrew-prefix "opt/llvm/bin/clangd")))
 
 ;; macOS: Set locate to use unix locate command instead of `mdfind` because `mdfind` is not indexing
 ;; all dev files.
