@@ -358,3 +358,6 @@
 (defun lgreen/set-transparent-terminal-background ()
   (unless (display-graphic-p (selected-frame))
     (set-face-background 'default nil (selected-frame))))
+
+;; We want spaces over tabs
+(setq-default indent-tabs-mode nil)
