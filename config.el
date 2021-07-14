@@ -155,6 +155,7 @@
   ;; Log DONE with timestamp
   (setq org-log-done 'time)
 
+(require 'org-mu4e)
   ;; Update the default Doom "todo" to use TODO instead of [ ]
   (setq org-capture-templates
     '(("t" "todo" entry
@@ -163,6 +164,9 @@
     ("n" "notes" entry
       (file+headline +org-capture-notes-file "Inbox")
       "* %u %?\n%i\n%a" :prepend t)
+    ("m" "email" entry
+      (file+olp +org-capture-todo-file "Inbox")
+      "* TODO Mail:%u %?\n%i\n%a" :prepend t)
     ("j" "Journal" entry
       (file+olp+datetree +org-capture-journal-file)
       "* %U %?\n%i\n%a" :prepend t)
