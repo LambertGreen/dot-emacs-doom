@@ -357,3 +357,11 @@
   "Eclipse Java Programming Style")
 (c-add-style "ECLIPSE" eclipse-java-style)
 (customize-set-variable 'c-default-style (quote ((java-mode . "eclipse") (awk-mode . "awk") (other . "gnu"))))
+
+;; Function to make the background transparent when running in a terminal
+(defun lgreen/set-transparent-terminal-background ()
+  (unless (display-graphic-p (selected-frame))
+    (set-face-background 'default nil (selected-frame))))
+
+;; We want spaces over tabs
+(setq-default indent-tabs-mode nil)
