@@ -365,3 +365,9 @@
 
 ;; We want spaces over tabs
 (setq-default indent-tabs-mode nil)
+
+;; Font settings
+;; Make comments and code keywords italics
+(custom-set-faces!
+  '(font-lock-comment-face :slant italic)
+  '(font-lock-keyword-face :slant italic))
