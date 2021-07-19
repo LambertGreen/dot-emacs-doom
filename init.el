@@ -201,4 +201,4 @@
        ;;literate
        (default
          +bindings
-          +smartparens))
+         +smartparens))
