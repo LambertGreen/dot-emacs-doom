@@ -100,6 +100,10 @@
 ;;   (setq mac-command-modifier 'meta)
 ;;   (setq mac-option-modifier 'meta))
 
+;; Add mu4e to load path
+(if (eq system-type 'darwin)
+    (add-load-path! "/opt/homebrew/Cellar/mu/1.6.3/share/emacs/site-lisp/mu/mu4e" ))
+
 ;; Set find program
 ;; TODO: Check if fd can be used since it so much faster.
 (if (eq system-type 'windows-nt)
@@ -155,7 +159,6 @@
   ;; Log DONE with timestamp
   (setq org-log-done 'time)
 
-(require 'org-mu4e)
   ;; Update the default Doom "todo" to use TODO instead of [ ]
   (setq org-capture-templates
     '(("t" "todo" entry
