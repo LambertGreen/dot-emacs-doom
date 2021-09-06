@@ -73,3 +73,4 @@
 (package! sword-to-org :recipe (:host github :repo "alphapapa/sword-to-org"))
 (package! dtk :recipe (:host github :repo "dtk01/dtk"))
 (package! org-mime :recipe (:host github :repo "org-mime/org-mime"))
+(package! rfc-mode)
