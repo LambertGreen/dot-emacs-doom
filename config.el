@@ -31,6 +31,7 @@
     (setq
      doom-font (font-spec :family "Iosevka NF" :size 13)
      ))
+(setq doom-unicode-font doom-font)
 
 ;; Set window position and size
 ;; TODO: This code works when evaluated after Emacs start, but does not result
