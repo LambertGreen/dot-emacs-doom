@@ -375,3 +375,6 @@
 (custom-set-faces!
   '(font-lock-comment-face :slant italic)
   '(font-lock-keyword-face :slant italic))
+
+;; Enable undo in non-file buffers
+(global-undo-tree-mode)
