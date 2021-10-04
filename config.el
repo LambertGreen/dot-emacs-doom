@@ -378,3 +378,4 @@
 
 ;; Enable undo in non-file buffers
 (global-undo-tree-mode)
+(add-hook `evil-local-mode-hook `turn-on-undo-tree-mode)
