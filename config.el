@@ -363,9 +363,16 @@
 (customize-set-variable 'c-default-style (quote ((java-mode . "eclipse") (awk-mode . "awk") (other . "gnu"))))
 
 ;; Function to make the background transparent when running in a terminal
-(defun lgreen/set-transparent-terminal-background ()
-  (unless (display-graphic-p (selected-frame))
-    (set-face-background 'default nil (selected-frame))))
+(defun lgreen/remove-background-in-terminal (&optional frame)
+  "Unsets the background color in terminal mode."
+  (interactive)
+  (or frame (setq frame (selected-frame)))
+  (unless (display-graphic-p frame)
+    (set-face-background 'default "unspecified-bg" frame)))
+
+;; TODO These hooks don't appear to work.
+(add-hook 'after-make-frame-functions 'lgreen/remove-background-in-terminal)
+(add-hook 'window-setup-hook 'lgreen/remove-background-in-terminal)
 
 ;; We want spaces over tabs
 (setq-default indent-tabs-mode nil)
