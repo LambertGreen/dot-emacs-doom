@@ -26,12 +26,12 @@
 (if (eq system-type 'darwin)
     (setq
      doom-font (font-spec :family "Iosevka Nerd Font" :size 13)
+     doom-unicode-font (font-spec :family "Iosevka Nerd Font")
      ))
 (if (eq system-type 'windows-nt)
     (setq
      doom-font (font-spec :family "Iosevka NF" :size 13)
      ))
-(setq doom-unicode-font doom-font)
 
 ;; Set window position and size
 ;; TODO: This code works when evaluated after Emacs start, but does not result
