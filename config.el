@@ -370,9 +370,16 @@
   (unless (display-graphic-p frame)
     (set-face-background 'default "unspecified-bg" frame)))
 
-;; TODO These hooks don't appear to work.
-(add-hook 'after-make-frame-functions 'lgreen/remove-background-in-terminal)
-(add-hook 'window-setup-hook 'lgreen/remove-background-in-terminal)
+;; No longer setting background in terminal to "transparent" and instead
+;; am relying on the terminal transparency to apply the Emacs background color.
+;; Note: I am now addressing the flicker issue, by setting the Terminal background color
+;; to match the Emacs background color.  I do this for both light and dark mode themes (i.e
+;; I am setting the Terminal background accordingly for its dark/light color settings.)
+;;
+;; TODO consider removing the below if it is not used over a long period of time.
+;;
+;; (add-hook 'after-make-frame-functions 'lgreen/remove-background-in-terminal)
+;; (add-hook 'window-setup-hook 'lgreen/remove-background-in-terminal)
 
 ;; We want spaces over tabs
 (setq-default indent-tabs-mode nil)
