@@ -384,11 +384,20 @@
 ;; We want spaces over tabs
 (setq-default indent-tabs-mode nil)
 
-;; Font settings
 ;; Make comments and code keywords italics
-(custom-set-faces!
-  '(font-lock-comment-face :slant italic)
-  '(font-lock-keyword-face :slant italic))
+;; Not using this anylonger because of the affect it has in Emacs running inside a terminal.
+;; The italics is too thin and makes the text hard to read.
+;;
+;; TODO consider removing the below if it is not used over a long period of time.
+;;
+;; (custom-set-faces!
+;;   '(font-lock-comment-face :slant italic)
+;;   '(font-lock-keyword-face :slant italic))
+
+;; In terminal mode make code comment more readable
+(unless window-system
+  (setq doom-one-brighter-comments t)
+  )
 
 ;; Enable undo in non-file buffers
 (global-undo-tree-mode)
