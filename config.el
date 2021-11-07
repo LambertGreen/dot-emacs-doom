@@ -149,6 +149,8 @@
     (setq ispell-alternate-dictionary "~/.ispell/english-words.txt")
     ))
 
+(setq ispell-personal-dictionary "~/.aspell.en.pws")
+
 ;; Org-mode config
 ;;
 (after! org
