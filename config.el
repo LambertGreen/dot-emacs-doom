@@ -149,6 +149,8 @@
     (setq ispell-alternate-dictionary "~/.ispell/english-words.txt")
     ))
 
+(setq ispell-personal-dictionary "~/.aspell.en.pws")
+
 ;; Org-mode config
 ;;
 (after! org
@@ -417,3 +419,6 @@
     (setq jenv-installation-dir "/home/linuxbrew/.linuxbrew/bin/"))
 (if (eq system-type 'darwin)
     (setq jenv-installation-dir "/usr/local/"))
+
+;; TODO See if there is a safer option than this
+(setq-default enable-local-variables t)
