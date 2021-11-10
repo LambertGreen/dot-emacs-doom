@@ -21,16 +21,16 @@
 ;; (setq doom-font (font-spec :family "monospace" :size 14))
 (if (eq system-type 'gnu/linux)
     (setq
-     doom-font (font-spec :family "Iosevka Nerd Font" :size 13)
+     doom-font (font-spec :family "Iosevka Nerd Font" :size 15)
      ))
 (if (eq system-type 'darwin)
     (setq
-     doom-font (font-spec :family "Iosevka Nerd Font" :size 13)
+     doom-font (font-spec :family "Iosevka Nerd Font" :size 15)
      doom-unicode-font (font-spec :family "Iosevka Nerd Font")
      ))
 (if (eq system-type 'windows-nt)
     (setq
-     doom-font (font-spec :family "Iosevka NF" :size 13)
+     doom-font (font-spec :family "Iosevka NF" :size 15)
      ))
 
 ;; Set window position and size
