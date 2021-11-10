@@ -395,9 +395,17 @@
 ;;   '(font-lock-keyword-face :slant italic))
 
 ;; In terminal mode make code comment more readable
-(unless window-system
-  (setq doom-one-brighter-comments t)
-  )
+;; TODO consider removing.
+;; Note: Using ~window-system~ like below is not compatible when using Emacs in daemon
+;; mode, since the daemon will never have a window-sytem and hence the brighter
+;; comments config will end up applying to GUI emacsclient frames.
+;; For now we either are ok with the default comments brightness or
+;; we need to change it for both terminal and GUI modes.
+;; There may be a way to use hooks to change things for the current frame,
+;; but I am not sure how we can the frame to 'redraw' with the updated config.
+;; (unless window-system
+;;   (setq doom-one-brighter-comments t)
+;;   )
 
 ;; Enable undo in non-file buffers
 (global-undo-tree-mode)
