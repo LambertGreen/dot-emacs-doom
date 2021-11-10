@@ -410,3 +410,10 @@
 ;; Enable undo in non-file buffers
 (global-undo-tree-mode)
 (add-hook `evil-local-mode-hook `turn-on-undo-tree-mode)
+
+;; BUG We should not need the below. Docs say one can set JENV_ROOT
+;; so lets see if we can get rid of needing the below
+(if (eq system-type 'gnu/linux)
+    (setq jenv-installation-dir "/home/linuxbrew/.linuxbrew/bin/"))
+(if (eq system-type 'darwin)
+    (setq jenv-installation-dir "/usr/local/"))
