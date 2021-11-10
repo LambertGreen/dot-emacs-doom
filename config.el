@@ -386,3 +386,6 @@
 ;; Enable undo in non-file buffers
 (global-undo-tree-mode)
 (add-hook `evil-local-mode-hook `turn-on-undo-tree-mode)
+
+;; TODO See if there is a safer option than this
+(setq-default enable-local-variables t)
