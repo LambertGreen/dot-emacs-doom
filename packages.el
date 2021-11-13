@@ -70,4 +70,3 @@
 (package! org-mime :recipe (:host github :repo "org-mime/org-mime"))
 (package! rfc-mode)
 (package! emacs-bazel-mode :recipe (:host github :repo "bazelbuild/emacs-bazel-mode"))
-(package! nix-mode)
