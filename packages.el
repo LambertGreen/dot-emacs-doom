@@ -71,3 +71,5 @@
 (package! rfc-mode)
 (package! emacs-bazel-mode :recipe (:host github :repo "bazelbuild/emacs-bazel-mode"))
 (package! nix-mode)
+(package! org-pretty-table :recipe (:host github :repo "Fuco1/org-pretty-table"))
+

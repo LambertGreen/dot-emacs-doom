@@ -195,6 +195,9 @@
   (defadvice org-mode-flyspell-verify (after org-mode-flyspell-verify-hack activate)
     (when (and ad-return-value (org-table-p))
       (setq ad-return-value nil)))
+
+  ;; Make org-mode tables pretty
+  (add-hook 'org-mode-hook (lambda () (org-pretty-table-mode)))
   )
 
 ;; Whenever a TODO entry is created, we want a timestamp
