@@ -190,6 +190,11 @@
     ("ot" "Project todo" entry #'+org-capture-central-project-todo-file "* TODO %?\n %i\n %a" :heading "Tasks" :prepend nil)
     ("on" "Project notes" entry #'+org-capture-central-project-notes-file "* %U %?\n %i\n %a" :heading "Notes" :prepend t)
     ("oc" "Project changelog" entry #'+org-capture-central-project-changelog-file "* %U %?\n %i\n %a" :heading "Changelog" :prepend t)))
+
+  ;; Disable spell check for org-tables
+  (defadvice org-mode-flyspell-verify (after org-mode-flyspell-verify-hack activate)
+    (when (and ad-return-value (org-table-p))
+      (setq ad-return-value nil)))
   )
 
 ;; Whenever a TODO entry is created, we want a timestamp
