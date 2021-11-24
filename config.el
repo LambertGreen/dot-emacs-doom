@@ -422,3 +422,9 @@
 
 ;; TODO See if there is a safer option than this
 (setq-default enable-local-variables t)
+
+(defun lgreen/json_prettify ()
+  "Switch buffer to json-mode and pretty print it."
+  (interactive)
+  (json-mode)
+  (json-pretty-print-buffer))
