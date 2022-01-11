@@ -445,3 +445,9 @@
 ;; if many buffers are open, then after switching a branch there may
 ;; be slowness.
 (setq auto-revert-check-vc-info t)
+
+(use-package! tree-sitter
+  :config
+  (require 'tree-sitter-langs)
+  (global-tree-sitter-mode)
+  (add-hook 'tree-sitter-after-on-hook #'tree-sitter-hl-mode))
