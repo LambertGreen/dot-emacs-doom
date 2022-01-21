@@ -74,3 +74,4 @@
 (package! org-pretty-table :recipe (:host github :repo "Fuco1/org-pretty-table"))
 (package! tree-sitter)
 (package! tree-sitter-langs)
+(package! palette)
