@@ -437,6 +437,15 @@
   (json-mode)
   (json-pretty-print-buffer))
 
+;; Setting to ensure mode line VC branch info is updated when
+;; switching branches via Magit.
+;;
+;; NOTE: This setting is not enabled by default due to it not
+;; being performant, and so keep an eye out for performance issues e.g.
+;; if many buffers are open, then after switching a branch there may
+;; be slowness.
+(setq auto-revert-check-vc-info t)
+
 (use-package! tree-sitter
   :config
   (require 'tree-sitter-langs)
