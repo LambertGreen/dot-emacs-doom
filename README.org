@@ -1,0 +1,14 @@
+#+TITLE:   README
+
+This is my =Doom Emacs= configuration.
+
+* Introduction
+I am =Vim= user who was looking for a better interface for software development for taking notes, planning, and switching programming modes, and found that =Emacs= provdies this while having an excellent =Vim= emulation.  However in particular the =Doom Emacs= configuration implements all the goodies that I was looking for.
+
++ Highlights
+  + =Org-Mode=
+    + Nothing else quite like this. I use this for my notes, project planning, and agenda
+  + =Magit=
+    + Excellent Git interface. Much better than the command-line interface
+  + =Lsp-mode=
+    + Makes =Emacs= my primary IDE.
