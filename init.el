@@ -114,7 +114,8 @@
 
        :os
        (:if IS-MAC macos)  ; improve compatibility with macOS
-       tty                 ; improve the terminal Emacs experience
+       (tty                ; improve the terminal Emacs experience
+        +osc)
 
        :lang
        ;;agda              ; types of types of types of types...
