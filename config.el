@@ -451,3 +451,7 @@
   (require 'tree-sitter-langs)
   (global-tree-sitter-mode)
   (add-hook 'tree-sitter-after-on-hook #'tree-sitter-hl-mode))
+
+;; On macOS use the mdfind command instead of the locate command
+(if (eq system-type 'darwin)
+    (setq consult-locate-args "mdfind -name "))
