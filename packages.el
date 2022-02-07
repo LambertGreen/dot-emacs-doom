@@ -59,6 +59,7 @@
 (package! vimrc-mode)
 (package! pdf-tools)
 (package! apples-mode)
+(package! ob-applescript)
 (package! typit)
 ;; (package! p4 :recipe (:host github :repo "gareth-rees/p4.el"))
 (package! jenv :recipe (:host github :repo "shellbj/jenv.el"))
