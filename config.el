@@ -453,5 +453,6 @@
   (add-hook 'tree-sitter-after-on-hook #'tree-sitter-hl-mode))
 
 ;; On macOS use the mdfind command instead of the locate command
+;; TODO Move this configuration into Doom's Vertico.el to use `consult--customize` and submit a PR
 (if (eq system-type 'darwin)
     (setq consult-locate-args "mdfind -name "))
