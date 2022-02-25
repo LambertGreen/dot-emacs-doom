@@ -48,7 +48,10 @@
 
 ;; Set org directory
 (setq org-directory "~/dev/my/notes/")
-
+;; Set org agenda files
+;; - Only include *.org files (we don't want to include files under the .git directory)
+;; - Note: newly added files in an editing session will not be picked up until this line is run again
+(setq org-agenda-files (directory-files-recursively org-directory "\\.org$"))
 ;; Set projects directory
 (setq projectile-project-search-path '("~/dev/my/" "~/dev/pub/" "~/dev/work/"))
 
