@@ -422,3 +422,8 @@
 
 ;; TODO See if there is a safer option than this
 (setq-default enable-local-variables t)
+
+;; On Windows ignore any f15 keypress since we use Caffeine from time to time
+;; and it uses the f15 key to keep the machine from falling asleep
+(if (eq system-type 'windows-nt)
+        (global-set-key [f15] 'ignore))
