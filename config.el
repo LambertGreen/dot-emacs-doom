@@ -190,6 +190,14 @@
     ("ot" "Project todo" entry #'+org-capture-central-project-todo-file "* TODO %?\n %i\n %a" :heading "Tasks" :prepend nil)
     ("on" "Project notes" entry #'+org-capture-central-project-notes-file "* %U %?\n %i\n %a" :heading "Notes" :prepend t)
     ("oc" "Project changelog" entry #'+org-capture-central-project-changelog-file "* %U %?\n %i\n %a" :heading "Changelog" :prepend t)))
+
+  ;; Disable spell check for org-tables
+  (defadvice org-mode-flyspell-verify (after org-mode-flyspell-verify-hack activate)
+    (when (and ad-return-value (org-table-p))
+      (setq ad-return-value nil)))
+
+  ;; Make org-mode tables pretty
+  (add-hook 'org-mode-hook (lambda () (org-pretty-table-mode)))
   )
 
 ;; Whenever a TODO entry is created, we want a timestamp
@@ -422,6 +430,32 @@
 
 ;; TODO See if there is a safer option than this
 (setq-default enable-local-variables t)
+
+(defun lgreen/json_prettify ()
+  "Switch buffer to json-mode and pretty print it."
+  (interactive)
+  (json-mode)
+  (json-pretty-print-buffer))
+
+;; Setting to ensure mode line VC branch info is updated when
+;; switching branches via Magit.
+;;
+;; NOTE: This setting is not enabled by default due to it not
+;; being performant, and so keep an eye out for performance issues e.g.
+;; if many buffers are open, then after switching a branch there may
+;; be slowness.
+(setq auto-revert-check-vc-info t)
+
+(use-package! tree-sitter
+  :config
+  (require 'tree-sitter-langs)
+  (global-tree-sitter-mode)
+  (add-hook 'tree-sitter-after-on-hook #'tree-sitter-hl-mode))
+
+;; On macOS use the mdfind command instead of the locate command
+;; TODO Move this configuration into Doom's Vertico.el to use `consult--customize` and submit a PR
+(if (eq system-type 'darwin)
+    (setq consult-locate-args "mdfind -name "))
 
 ;; On Windows ignore any f15 keypress since we use Caffeine from time to time
 ;; and it uses the f15 key to keep the machine from falling asleep
