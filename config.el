@@ -444,7 +444,9 @@
 ;; being performant, and so keep an eye out for performance issues e.g.
 ;; if many buffers are open, then after switching a branch there may
 ;; be slowness.
-(setq auto-revert-check-vc-info t)
+;; Don't enable for Windows which is already very slow executing Git
+(unless (eq system-type 'windows-nt)
+  (setq auto-revert-check-vc-info t))
 
 ;; TODO Get TreeSitter working again when they have published aarm64 binaries
 (unless (string-match-p (rx string-start "aarch64-") system-configuration)
