@@ -464,3 +464,7 @@
 ;; and it uses the f15 key to keep the machine from falling asleep
 (if (eq system-type 'windows-nt)
         (global-set-key [f15] 'ignore))
+
+(if (eq system-type 'darwin)
+    (add-to-list 'default-frame-alist '(ns-transparent-titlebar . t)))
+
