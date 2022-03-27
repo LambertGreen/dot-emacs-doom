@@ -54,6 +54,11 @@
 ;; do both in `lisp-interaction-mode'.
 (setq doom-scratch-initial-major-mode 'lisp-interaction-mode)
 
+;;; :editor evil
+;; Focus new window after splitting
+(setq evil-split-window-below t
+      evil-vsplit-window-right t)
+
 ;; Set org directory
 (setq org-directory "~/dev/my/notes/")
 ;; Set org agenda files
