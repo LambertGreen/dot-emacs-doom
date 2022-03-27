@@ -33,6 +33,9 @@
      doom-font (font-spec :family "Iosevka NF" :size 15)
      ))
 
+;;; :ui doom-dashboard
+(setq fancy-splash-image (concat doom-private-dir "splash.png"))
+
 ;; Set window position and size
 ;; TODO: This code works when evaluated after Emacs start, but does not result
 ;; in the desired view on startup.
