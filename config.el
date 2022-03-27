@@ -49,6 +49,10 @@
 ;; `load-theme' function. These are the defaults.
 (setq doom-theme 'doom-one)
 
+;; Line numbers are pretty slow all around. The performance boost of disabling
+;; them outweighs the utility of always keeping them on.
+(setq display-line-numbers-type nil)
+
 ;; When I bring up Doom's scratch buffer with SPC x, it's often to play with
 ;; elisp or note something down (that isn't worth an entry in my notes). I can
 ;; do both in `lisp-interaction-mode'.
