@@ -168,6 +168,9 @@
   ;; Log DONE with timestamp
   (setq org-log-done 'time)
 
+  ;; Doom Emacs default is 'todo.org' but I prefer to use 'inbox.org'
+  (setq +org-capture-todo-file "inbox.org")
+
   ;; Update the default Doom "todo" to use TODO instead of [ ]
   (setq org-capture-templates
     '(("t" "todo" entry
