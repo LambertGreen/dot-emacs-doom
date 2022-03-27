@@ -75,3 +75,4 @@
 (package! tree-sitter-langs)
 (package! ov-highlight :recipe (:host github :repo "jkitchin/ov-highlight"))
 (package! palette)
+(package! mermaid-mode)
