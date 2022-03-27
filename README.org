@@ -3,9 +3,11 @@
 This is my =Doom Emacs= configuration.
 
 * Introduction
-I am =Vim= user who was looking for a better interface for software development for taking notes, planning, and switching programming modes, and found that =Emacs= provdies this while having an excellent =Vim= emulation.  However in particular the =Doom Emacs= configuration implements all the goodies that I was looking for.
+I am =Vim= user who was looking for a better interface for software development for taking notes, planning, and switching programming modes, and found that =Emacs= provides this while having an excellent =Vim= emulation.  However in particular the =Doom Emacs= configuration implements all the goodies that I was looking for.
 
 + Highlights
+  + =Evil=
+    + I am not sure I would bother with =Emacs= if there was no support for =Vim= based text editing.
   + =Org-Mode=
     + Nothing else quite like this. I use this for my notes, project planning, and agenda
   + =Magit=

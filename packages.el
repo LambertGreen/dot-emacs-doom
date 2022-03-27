@@ -52,7 +52,9 @@
 (package! groovy-mode)
 (package! powershell)
 (package! ahk-mode)
-(package! ssh-agency)
+;; TODO Get SSH working fine on Windows
+;; I am running into an issue which I think stems from using OpenSSH from Windows
+;; (package! ssh-agency)
 (package! dash-at-point)
 (package! vimrc-mode)
 (package! pdf-tools)

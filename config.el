@@ -467,15 +467,27 @@
 ;; being performant, and so keep an eye out for performance issues e.g.
 ;; if many buffers are open, then after switching a branch there may
 ;; be slowness.
-(setq auto-revert-check-vc-info t)
+;; Don't enable for Windows which is already very slow executing Git
+(unless (eq system-type 'windows-nt)
+  (setq auto-revert-check-vc-info t))
 
-(use-package! tree-sitter
-  :config
-  (require 'tree-sitter-langs)
-  (global-tree-sitter-mode)
-  (add-hook 'tree-sitter-after-on-hook #'tree-sitter-hl-mode))
+;; TODO Get TreeSitter working again when they have published aarm64 binaries
+(unless (string-match-p (rx string-start "aarch64-") system-configuration)
+  (use-package! tree-sitter :config
+                (require 'tree-sitter-langs)
+                (global-tree-sitter-mode)
+                (add-hook 'tree-sitter-after-on-hook #'tree-sitter-hl-mode)))
 
 ;; On macOS use the mdfind command instead of the locate command
 ;; TODO Move this configuration into Doom's Vertico.el to use `consult--customize` and submit a PR
 (if (eq system-type 'darwin)
     (setq consult-locate-args "mdfind -name "))
+
+;; On Windows ignore any f15 keypress since we use Caffeine from time to time
+;; and it uses the f15 key to keep the machine from falling asleep
+(if (eq system-type 'windows-nt)
+        (global-set-key [f15] 'ignore))
+
+(if (eq system-type 'darwin)
+    (add-to-list 'default-frame-alist '(ns-transparent-titlebar . t)))
+
