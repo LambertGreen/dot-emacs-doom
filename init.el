@@ -14,6 +14,11 @@
 ;;      Alternatively, press 'gd' (or 'C-c c d') on a module to browse its
 ;;      directory (for easy access to its source code).
 
+;; Doom supports compiling elisp files after running upgrade/sync, however this can take a long time
+;; and also result in one or two files never completing the compilation step. So we go with deffered
+;; compilation instead i.e. let Emacs compile elisp files as they get loaded.
+(setq native-comp-deferred-compilation t)
+
 (doom! :input
        ;;chinese
        ;;japanese
