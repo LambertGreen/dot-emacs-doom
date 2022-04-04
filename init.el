@@ -19,6 +19,11 @@
 ;; compilation instead i.e. let Emacs compile elisp files as they get loaded.
 (setq native-comp-deferred-compilation t)
 
+;; Now that we have enabled deferred complilation we end up getting warnings on startup, that
+;; show up in a popup buffer.  We don't want that buffer showing up and rather want the warnings
+;; silently written to the *Messages* buffer
+(setq native-comp-async-report-warnings-errors nil)
+
 (doom! :input
        ;;chinese
        ;;japanese
