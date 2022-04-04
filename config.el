@@ -491,3 +491,11 @@
 (if (eq system-type 'darwin)
     (add-to-list 'default-frame-alist '(ns-transparent-titlebar . t)))
 
+;; On Windows: open a cmd.exe shell
+(if (eq system-type 'windows-nt)
+    (defun command-shell ()
+      "opens a shell which can run programs as if run from cmd.exe from Windows"
+      (interactive)
+      (let ((explicit-shell-file-name "cmdproxy")
+            (shell-file-name "cmdproxy") (comint-dynamic-complete t))
+        (shell))))
