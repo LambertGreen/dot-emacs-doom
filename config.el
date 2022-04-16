@@ -70,7 +70,7 @@
 ;; - Note: newly added files in an editing session will not be picked up until this line is run again
 (setq org-agenda-files (directory-files-recursively org-directory "\\.org$"))
 ;; Set projects directory
-(setq projectile-project-search-path '("~/dev/my/" "~/dev/pub/" "~/dev/work/"))
+(setq projectile-project-search-path '(("~/dev/my/" . 3) ("~/dev/pub/" . 3) ("~/dev/work/" . 3)))
 
 ;; If you want to change the style of line numbers, change this to `relative' or
 ;; `nil' to disable it:
