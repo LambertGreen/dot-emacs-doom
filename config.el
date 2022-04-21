@@ -64,13 +64,13 @@
       evil-vsplit-window-right t)
 
 ;; Set org directory
-(setq org-directory "~/dev/my/notes/")
+(setq org-directory "~/org/")
 ;; Set org agenda files
 ;; - Only include *.org files (we don't want to include files under the .git directory)
 ;; - Note: newly added files in an editing session will not be picked up until this line is run again
 (setq org-agenda-files (directory-files-recursively org-directory "\\.org$"))
 ;; Set projects directory
-(setq projectile-project-search-path '(("~/dev/my/" . 3) ("~/dev/pub/" . 3) ("~/dev/work/" . 3)))
+(setq projectile-project-search-path '(("~/org/") ("~/dev/" . 4)))
 
 ;; If you want to change the style of line numbers, change this to `relative' or
 ;; `nil' to disable it:
