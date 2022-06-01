@@ -350,13 +350,7 @@
     (require 'newcomment)
     (ahk-comment-dwim)))
 
-;; TODO: Do we really need the 'keychain' package?
-;; I can't tell... I just started Emacs and pulling from a remote Git repo
-;; is not resulting in a prompt for the SSH key showing.
-;;
-;; UPDATE 6/1/22: Yes, this is needed. Maybe things worked fine due to
-;; shell integration? Anyway I tested this on Linux. Please also
-;; test on macOS and then remove comments if everything is working fine.
+;; Will re-use or startup SSH Agent
 (keychain-refresh-environment)
 
 ;; Make the frame title include the project name
