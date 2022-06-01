@@ -19,6 +19,8 @@
 ;; compilation instead i.e. let Emacs compile elisp files as they get loaded.
 (setq native-comp-deferred-compilation t)
 
+(setq native-comp-async-report-warnings-errors nil)
+
 (doom! :input
        ;;chinese
        ;;japanese
