@@ -64,13 +64,13 @@
       evil-vsplit-window-right t)
 
 ;; Set org directory
-(setq org-directory "~/dev/my/notes/")
+(setq org-directory "~/org/")
 ;; Set org agenda files
 ;; - Only include *.org files (we don't want to include files under the .git directory)
 ;; - Note: newly added files in an editing session will not be picked up until this line is run again
 (setq org-agenda-files (directory-files-recursively org-directory "\\.org$"))
 ;; Set projects directory
-(setq projectile-project-search-path '("~/dev/my/" "~/dev/pub/" "~/dev/work/"))
+(setq projectile-project-search-path '(("~/org/") ("~/dev/" . 4)))
 
 ;; If you want to change the style of line numbers, change this to `relative' or
 ;; `nil' to disable it:
@@ -350,10 +350,8 @@
     (require 'newcomment)
     (ahk-comment-dwim)))
 
-;; TODO: Do we really need the 'keychain' package?
-;; I can't tell... I just started Emacs and pulling from a remote Git repo
-;; is not resulting in a prompt for the SSH key showing.
-;; (keychain-refresh-environment)
+;; Will re-use or startup SSH Agent
+(keychain-refresh-environment)
 
 ;; Make the frame title include the project name
 ;; Allows for easy switching to Emacs frame by project name
@@ -363,7 +361,7 @@
         (:eval
          (let ((project-name (projectile-project-name)))
            (unless (string= "-" project-name)
-             (format " in [%s]" project-name))))))
+             (format " in [%s] - Emacs" project-name))))))
 
 ;; eclipse-java-style is the same as the "java" style (copied from
 ;; cc-styles.el) with the addition of (arglist-cont-nonempty . ++) to
@@ -449,7 +447,7 @@
 (if (eq system-type 'gnu/linux)
     (setq jenv-installation-dir "/home/linuxbrew/.linuxbrew/bin/"))
 (if (eq system-type 'darwin)
-    (setq jenv-installation-dir "/usr/local/"))
+    (setq jenv-installation-dir "/usr/local/bin/"))
 
 ;; TODO See if there is a safer option than this
 (setq-default enable-local-variables t)
@@ -499,3 +497,7 @@
       (let ((explicit-shell-file-name "cmdproxy")
             (shell-file-name "cmdproxy") (comint-dynamic-complete t))
         (shell))))
+
+;; Dired-omit-mode is on by default, but hides files too aggresively which has
+;; caused me confusion.
+(setq dired-omit-extensions nil)
