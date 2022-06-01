@@ -361,7 +361,7 @@
         (:eval
          (let ((project-name (projectile-project-name)))
            (unless (string= "-" project-name)
-             (format " in [%s]" project-name))))))
+             (format " in [%s] - Emacs" project-name))))))
 
 ;; eclipse-java-style is the same as the "java" style (copied from
 ;; cc-styles.el) with the addition of (arglist-cont-nonempty . ++) to
