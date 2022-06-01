@@ -449,7 +449,7 @@
 (if (eq system-type 'gnu/linux)
     (setq jenv-installation-dir "/home/linuxbrew/.linuxbrew/bin/"))
 (if (eq system-type 'darwin)
-    (setq jenv-installation-dir "/usr/local/"))
+    (setq jenv-installation-dir "/usr/local/bin/"))
 
 ;; TODO See if there is a safer option than this
 (setq-default enable-local-variables t)
