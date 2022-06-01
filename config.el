@@ -499,3 +499,7 @@
       (let ((explicit-shell-file-name "cmdproxy")
             (shell-file-name "cmdproxy") (comint-dynamic-complete t))
         (shell))))
+
+;; Dired-omit-mode is on by default, but hides files too aggresively which has
+;; caused me confusion.
+(setq dired-omit-extensions nil)
