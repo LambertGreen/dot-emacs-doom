@@ -80,3 +80,4 @@
 (package! mermaid-mode)
 (package! gn-mode)
 (package! tldr)
+(package! pylookup)
