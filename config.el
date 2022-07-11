@@ -122,8 +122,9 @@
 ;;   (setq mac-option-modifier 'meta))
 
 ;; Add mu4e to load path
-(if (eq system-type 'darwin)
-    (add-load-path! "/opt/homebrew/Cellar/mu/1.8.5/share/emacs/site-lisp/mu/mu4e" ))
+(when (eq system-type 'darwin)
+  (add-load-path! "/opt/homebrew/Cellar/mu/1.8.5/share/emacs/site-lisp/mu/mu4e")
+  (add-to-list `Info-directory-list "/opt/homebrew/Cellar/mu/1.8.5/share/info/"))
 
 ;; Set find program
 ;; TODO: Check if fd can be used since it so much faster.
