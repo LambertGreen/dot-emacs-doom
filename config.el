@@ -3,6 +3,14 @@
 ;; Place your private configuration here! Remember, you do not need to run 'doom
 ;; refresh' after modifying this file!
 
+;; Add Homebrew Emacs site-lisp to load-path
+(when (eq system-type 'darwin)
+  (let ((default-directory "/opt/homebrew/share/emacs/site-lisp"))
+    (normal-top-level-add-subdirs-to-load-path)))
+
+;; Add Homebrew Info to Info path
+(when (eq system-type 'darwin)
+  (add-to-list `Info-directory-list "/opt/homebrew/share/info/"))
 
 ;; Some functionality uses this to identify you, e.g. GPG configuration, email
 ;; clients, file templates and snippets.
@@ -120,11 +128,6 @@
 ;; (if (eq system-type 'darwin)
 ;;   (setq mac-command-modifier 'meta)
 ;;   (setq mac-option-modifier 'meta))
-
-;; Add mu4e to load path
-(when (eq system-type 'darwin)
-  (add-load-path! "/opt/homebrew/Cellar/mu/1.8.5/share/emacs/site-lisp/mu/mu4e")
-  (add-to-list `Info-directory-list "/opt/homebrew/Cellar/mu/1.8.5/share/info/"))
 
 ;; Set find program
 ;; TODO: Check if fd can be used since it so much faster.
