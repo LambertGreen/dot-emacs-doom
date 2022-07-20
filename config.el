@@ -503,3 +503,10 @@
 ;; caused me confusion.
 (setq dired-omit-extensions nil)
 
+;; Setup mu4e
+(after! mu4e
+  (setq mu4e-index-cleanup nil
+        ;; because gmail uses labels as folders we can use lazy check since
+        ;; messages don't really "move"
+        mu4e-index-lazy-check t)
+  )
