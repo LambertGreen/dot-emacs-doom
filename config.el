@@ -503,7 +503,3 @@
 ;; caused me confusion.
 (setq dired-omit-extensions nil)
 
-;; Set pylookup directory
-(use-package! pylookup
-  :init
-  (setq pylookup-root "~/dev/pub/pylookup"))
