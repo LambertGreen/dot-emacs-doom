@@ -510,3 +510,6 @@
         ;; messages don't really "move"
         mu4e-index-lazy-check t)
   )
+
+;; Set org-roam directory
+(setq org-roam-directory "~/roam")
