@@ -81,3 +81,4 @@
 (package! gn-mode)
 (package! tldr)
 (package! devdocs :recipe (:host github :repo "astoff/devdocs.el"))
+(package! org-vcard)
