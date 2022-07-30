@@ -181,6 +181,9 @@
     :config
     (setq org-expiry-inactive-timestamps t))
 
+  ;; Use org-contacts for managing contacts and getting birthday's in the agenda
+  (use-package! org-contacts)
+
   ;; Log DONE with timestamp
   (setq org-log-done 'time)
 
@@ -513,3 +516,5 @@
 
 ;; Set org-roam directory
 (setq org-roam-directory "~/roam")
+
+;; (require 'org-contacts)
