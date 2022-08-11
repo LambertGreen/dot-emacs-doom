@@ -516,5 +516,3 @@
 
 ;; Set org-roam directory
 (setq org-roam-directory "~/roam")
-
-;; (require 'org-contacts)
