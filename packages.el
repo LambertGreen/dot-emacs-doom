@@ -80,5 +80,7 @@
 (package! mermaid-mode)
 (package! gn-mode)
 (package! tldr)
-(package! pylookup)
+(package! devdocs :recipe (:host github :repo "astoff/devdocs.el"))
+(package! org-vcard)
+(package! org-contacts)
 (package! dot-mode :recipe (:host github :repo "wyrickre/dot-mode"))

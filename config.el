@@ -3,6 +3,14 @@
 ;; Place your private configuration here! Remember, you do not need to run 'doom
 ;; refresh' after modifying this file!
 
+;; Add Homebrew Emacs site-lisp to load-path
+(when (eq system-type 'darwin)
+  (let ((default-directory "/opt/homebrew/share/emacs/site-lisp"))
+    (normal-top-level-add-subdirs-to-load-path)))
+
+;; Add Homebrew Info to Info path
+(when (eq system-type 'darwin)
+  (add-to-list `Info-directory-list "/opt/homebrew/share/info/"))
 
 ;; Some functionality uses this to identify you, e.g. GPG configuration, email
 ;; clients, file templates and snippets.
@@ -121,18 +129,13 @@
 ;;   (setq mac-command-modifier 'meta)
 ;;   (setq mac-option-modifier 'meta))
 
-;; Add mu4e to load path
-(if (eq system-type 'darwin)
-    (add-load-path! "/opt/homebrew/Cellar/mu/1.6.3/share/emacs/site-lisp/mu/mu4e" ))
-
 ;; Set find program
 ;; TODO: Check if fd can be used since it so much faster.
-(if (eq system-type 'windows-nt)
-    (setq find-program (expand-file-name "~/scoop/shims/find.exe"))
-  )
+(when (eq system-type 'windows-nt)
+  (setq find-program (expand-file-name "~/scoop/shims/find.exe")))
 
 ;; Set exec path
-(if (eq system-type 'windows-nt)
+(when (eq system-type 'windows-nt)
   (setq exec-path (cons "c:/Users/Lambert/scoop/shims/" exec-path)))
 
 ;; Show trailing whitespace
@@ -164,10 +167,9 @@
 
 ;; Set english dictionary words file for company-ispell
 ;; Only required on Windows.
-(if (eq system-type 'windows-nt)
+(when (eq system-type 'windows-nt)
   (after! ispell
-    (setq ispell-alternate-dictionary "~/.ispell/english-words.txt")
-    ))
+    (setq ispell-alternate-dictionary "~/.ispell/english-words.txt")))
 
 (setq ispell-personal-dictionary "~/.aspell.en.pws")
 
@@ -178,6 +180,9 @@
   (use-package! org-expiry
     :config
     (setq org-expiry-inactive-timestamps t))
+
+  ;; Use org-contacts for managing contacts and getting birthday's in the agenda
+  (use-package! org-contacts)
 
   ;; Log DONE with timestamp
   (setq org-log-done 'time)
@@ -261,9 +266,8 @@
    (set-frame-parameter (selected-frame) 'alpha value))
 
 ;; Workaround ripgrep issue on Windows
-(if (eq system-type 'windows-nt)
-    (setq ripgrep-arguments '("--path-separator /"))
-  )
+(when (eq system-type 'windows-nt)
+    (setq ripgrep-arguments '("--path-separator /")))
 
 ;; Influence Tramp to use a login shell so that ~/.profile is sourced on remote
 ;; host resulting in $PATH being setup correctly.
@@ -273,13 +277,13 @@
 )
 
 ;; macOS: Change dark/light theme
-(if (eq system-type 'darwin)
-    (add-hook 'ns-system-appearance-change-functions
-        #'(lambda (appearance)
+(when (eq system-type 'darwin)
+  (add-hook 'ns-system-appearance-change-functions
+            #'(lambda (appearance)
                 (mapc #'disable-theme custom-enabled-themes)
                 (pcase appearance
-                        ('light (load-theme 'doom-one-light t))
-                        ('dark (load-theme 'doom-one t))))))
+                  ('light (load-theme 'doom-one-light t))
+                  ('dark (load-theme 'doom-one t))))))
 
 ;; Function to add to the Emacs path - swiped from https://gitlab.com/xeijin-dev/doom-config/blob/master/config.org
 (defun lgreen/add-to-emacs-path (append-path &rest path)
@@ -309,21 +313,21 @@
 ;; LSP Related settings
 ;;
 ;; Set cache directory for ccls to be under home directory rather than polutting project directories
-(if (eq system-type 'darwin)
-    (setq ccls-initialization-options
-          `(:cache (:directory "/tmp/ccls-cache"))))
+(when (eq system-type 'darwin)
+  (setq ccls-initialization-options
+        `(:cache (:directory "/tmp/ccls-cache"))))
 
 ;; Set path to clangd (required when using clangd as cpp lsp)
-(if (eq system-type 'darwin)
-    (setq lsp-clients-clangd-executable (concat homebrew-prefix "opt/llvm/bin/clangd")))
+(when (eq system-type 'darwin)
+  (setq lsp-clients-clangd-executable (concat homebrew-prefix "opt/llvm/bin/clangd")))
 
 ;; macOS: Set locate to use unix locate command instead of `mdfind` because `mdfind` is not indexing
 ;; all dev files.
 ;; TODO: check if 'mdfind' can be configured to work better?
 ;; TODO: check if 'locate.udpatedb' is run periodically by default on macOS.
-(after! ivy
-  (if (eq system-type 'darwin)
-      (setq counsel-locate-cmd 'counsel-locate-cmd-noregex)))
+(when (eq system-type 'darwin)
+  (after! ivy
+    (setq counsel-locate-cmd 'counsel-locate-cmd-noregex)))
 
 ;; Enable gravatars
 (setq magit-revision-show-gravatars '("^Author:     " . "^Commit:     "))
@@ -444,10 +448,10 @@
 
 ;; BUG We should not need the below. Docs say one can set JENV_ROOT
 ;; so lets see if we can get rid of needing the below
-(if (eq system-type 'gnu/linux)
-    (setq jenv-installation-dir "/home/linuxbrew/.linuxbrew/bin/"))
-(if (eq system-type 'darwin)
-    (setq jenv-installation-dir "/usr/local/bin/"))
+(when (eq system-type 'gnu/linux)
+  (setq jenv-installation-dir "/home/linuxbrew/.linuxbrew/bin/"))
+(when (eq system-type 'darwin)
+  (setq jenv-installation-dir "/usr/local/bin/"))
 
 ;; TODO See if there is a safer option than this
 (setq-default enable-local-variables t)
@@ -478,31 +482,37 @@
 
 ;; On macOS use the mdfind command instead of the locate command
 ;; TODO Move this configuration into Doom's Vertico.el to use `consult--customize` and submit a PR
-(if (eq system-type 'darwin)
-    (setq consult-locate-args "mdfind -name "))
+(when (eq system-type 'darwin)
+  (setq consult-locate-args "mdfind -name "))
 
 ;; On Windows ignore any f15 keypress since we use Caffeine from time to time
 ;; and it uses the f15 key to keep the machine from falling asleep
-(if (eq system-type 'windows-nt)
-        (global-set-key [f15] 'ignore))
+(when (eq system-type 'windows-nt)
+  (global-set-key [f15] 'ignore))
 
-(if (eq system-type 'darwin)
-    (add-to-list 'default-frame-alist '(ns-transparent-titlebar . t)))
+(when (eq system-type 'darwin)
+  (add-to-list 'default-frame-alist '(ns-transparent-titlebar . t)))
 
 ;; On Windows: open a cmd.exe shell
-(if (eq system-type 'windows-nt)
-    (defun command-shell ()
-      "opens a shell which can run programs as if run from cmd.exe from Windows"
-      (interactive)
-      (let ((explicit-shell-file-name "cmdproxy")
-            (shell-file-name "cmdproxy") (comint-dynamic-complete t))
-        (shell))))
+(when (eq system-type 'windows-nt)
+  (defun command-shell ()
+    "opens a shell which can run programs as if run from cmd.exe from Windows"
+    (interactive)
+    (let ((explicit-shell-file-name "cmdproxy")
+          (shell-file-name "cmdproxy") (comint-dynamic-complete t))
+      (shell))))
 
 ;; Dired-omit-mode is on by default, but hides files too aggresively which has
 ;; caused me confusion.
 (setq dired-omit-extensions nil)
 
-;; Set pylookup directory
-(use-package! pylookup
-  :init
-  (setq pylookup-root "~/dev/pub/pylookup"))
+;; Setup mu4e
+(after! mu4e
+  (setq mu4e-index-cleanup nil
+        ;; because gmail uses labels as folders we can use lazy check since
+        ;; messages don't really "move"
+        mu4e-index-lazy-check t)
+  )
+
+;; Set org-roam directory
+(setq org-roam-directory "~/roam")
