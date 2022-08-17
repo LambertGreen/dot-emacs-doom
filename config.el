@@ -3,14 +3,21 @@
 ;; Place your private configuration here! Remember, you do not need to run 'doom
 ;; refresh' after modifying this file!
 
+;; Setup Homebrew related settings
+(when (eq system-type 'darwin)
+    (defvar homebrew-prefix)
+    (if (file-directory-p "/opt/homebrew/")
+        (setq homebrew-prefix "/opt/homebrew/")
+        (setq homebrew-prefix "/usr/local/")))
+
 ;; Add Homebrew Emacs site-lisp to load-path
 (when (eq system-type 'darwin)
-  (let ((default-directory "/opt/homebrew/share/emacs/site-lisp"))
+  (let ((default-directory (concat homebrew-prefix "share/emacs/site-lisp")))
     (normal-top-level-add-subdirs-to-load-path)))
 
 ;; Add Homebrew Info to Info path
 (when (eq system-type 'darwin)
-  (add-to-list `Info-directory-list "/opt/homebrew/share/info/"))
+  (add-to-list `Info-directory-list (concat homebrew-prefix "share/info/")))
 
 ;; Some functionality uses this to identify you, e.g. GPG configuration, email
 ;; clients, file templates and snippets.
@@ -301,14 +308,6 @@
   ;; update `process-environment' with whatever is in `exec-path' right now
   (setenv "PATH" (mapconcat #'identity exec-path path-separator))
   (message "exec-path and process-environment synchronised"))
-
-;; Setup Homebrew related settings
-;;
-(when (eq system-type 'darwin)
-    (defvar homebrew-prefix)
-    (if (file-directory-p "/opt/homebrew/")
-        (setq homebrew-prefix "/opt/homebrew/")
-        (setq homebrew-prefix "/usr/local/")))
 
 ;; LSP Related settings
 ;;
