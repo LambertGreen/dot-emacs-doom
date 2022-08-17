@@ -81,3 +81,4 @@
 (package! gn-mode)
 (package! tldr)
 (package! pylookup)
+(package! dot-mode :recipe (:host github :repo "wyrickre/dot-mode"))
