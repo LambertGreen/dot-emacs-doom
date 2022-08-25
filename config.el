@@ -211,14 +211,20 @@
     ("j" "Journal" entry
       (file+olp+datetree +org-capture-journal-file)
       "* %U %?\n%i\n%a" :prepend t)
-    ("p" "Templates for projects")
-    ("pt" "Project-local todo" entry
+    ("p" "Protocol" entry
+      (file+headline +org-capture-notes-file "Inbox")
+      "* %^{Title}\nSource: %u, %c\n #+BEGIN_QUOTE\n%i\n#+END_QUOTE\n\n\n%?")
+    ("L" "Protocol Link" entry
+      (file+headline +org-capture-notes-file "Inbox")
+      "* %? [[%:link][%:description]] \nCaptured On: %U")
+    ("P" "Templates for projects")
+    ("Pt" "Project-local todo" entry
       (file+headline +org-capture-project-todo-file "Inbox")
       "* TODO %?\n%i\n%a" :prepend t)
-    ("pn" "Project-local notes" entry
+    ("Pn" "Project-local notes" entry
       (file+headline +org-capture-project-notes-file "Inbox")
       "* %U %?\n%i\n%a" :prepend t)
-    ("pc" "Project-local changelog" entry
+    ("Pc" "Project-local changelog" entry
       (file+headline +org-capture-project-changelog-file "Unreleased")
       "* %U %?\n%i\n%a" :prepend t)
     ("o" "Centralized templates for projects")
