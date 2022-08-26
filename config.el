@@ -213,7 +213,7 @@
       "* %U %?\n%i\n%a" :prepend t)
     ("p" "Protocol" entry
       (file+headline +org-capture-notes-file "Inbox")
-      "* %^{Title}\nSource: %u, %c\n #+BEGIN_QUOTE\n%i\n#+END_QUOTE\n\n\n%?")
+      "* %? [[%:link][%:description]] \nCaptured On: %U\n #+BEGIN_QUOTE\n%i\n#+END_QUOTE\n\n\n%?")
     ("L" "Protocol Link" entry
       (file+headline +org-capture-notes-file "Inbox")
       "* %? [[%:link][%:description]] \nCaptured On: %U")
@@ -521,3 +521,43 @@
 
 ;; Set org-roam directory
 (setq org-roam-directory "~/roam")
+
+;;;
+;; Capture floating frame
+;;
+;; taken from: http://www.windley.com/archives/2010/12/capture_mode_and_emacs.shtml
+;;;
+(defadvice org-capture-finalize
+    (after delete-capture-frame activate)
+  "Advise capture-finalize to close the frame"
+  (if (equal "emacsclient-capture" (frame-parameter nil 'name))
+      (delete-frame)))
+
+(defadvice org-capture-destroy
+    (after delete-capture-frame activate)
+  "Advise capture-destroy to close the frame"
+  (if (equal "emacsclient-capture" (frame-parameter nil 'name)
+             (delete-frame))))
+
+;; BUG The dashboard window is not getting deleted
+;; I have validated the body works as expected in the org-protocol capture frame
+(defadvice org-switch-to-buffer-other-window
+    (after delete-other-window activate)
+  "Advise org-switch-to-buffer-other-window to delete the extra window if we're in a capture frame"
+  (if (equal "emacsclient-capture" (frame-parameter nil 'name))
+      (delete-other-windows)))
+
+;; TODO Remove this as it is currently unused
+;; The emacsclient command-line already provides the frame details in the -F parameter
+;; I could not get emacsclient to both eval elisp code and still activate on the org-protocol
+;; input parameter
+(defun make-capture-frame ()
+  "Create a new frame and run org-capture."
+  (interactive)
+  (make-frame '((name . "emacsclient-capture")
+                (width . 120)
+                (height . 15)))
+  (select-frame-by-name "emacsclient-capture")
+  (setq word-wrap 1)
+  (setq truncate-lines nil)
+  (org-capture))
