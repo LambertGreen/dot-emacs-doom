@@ -189,7 +189,8 @@
     (setq org-expiry-inactive-timestamps t))
 
   ;; Use org-contacts for managing contacts and getting birthday's in the agenda
-  (use-package! org-contacts)
+  (use-package! org-contacts
+    :config (setq org-contacts-files '("~/org/contacts.org")))
 
   ;; Log DONE with timestamp
   (setq org-log-done 'time)
