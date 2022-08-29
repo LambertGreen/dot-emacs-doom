@@ -183,6 +183,10 @@
 ;; Org-mode config
 ;;
 (after! org
+  ;; Use org-contacts for managing contacts and getting birthday's in the agenda
+  (use-package! org-contacts
+    :config (setq org-contacts-files '("~/org/contacts.org")))
+
   ;; Load habits
   (add-to-list 'org-modules 'org-habit)
 
@@ -190,10 +194,6 @@
   (use-package! org-expiry
     :config
     (setq org-expiry-inactive-timestamps t))
-
-  ;; Use org-contacts for managing contacts and getting birthday's in the agenda
-  (use-package! org-contacts
-    :config (setq org-contacts-files '("~/org/contacts.org")))
 
   ;; Log DONE with timestamp
   (setq org-log-done 'time)
