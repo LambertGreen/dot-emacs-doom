@@ -48,7 +48,7 @@
      doom-font (font-spec :family "Iosevka NF" :size 15)
      ))
 
-;;; :ui doom-dashboard
+;; :ui doom-dashboard
 (setq fancy-splash-image (concat doom-private-dir "splash.png"))
 
 ;; Set window position and size
