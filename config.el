@@ -183,6 +183,9 @@
 ;; Org-mode config
 ;;
 (after! org
+  ;; Load habits
+  (add-to-list 'org-modules 'org-habit)
+
   ;; Use org-expiry to have timestamps automatically created for tasks
   (use-package! org-expiry
     :config
