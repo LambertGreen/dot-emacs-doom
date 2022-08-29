@@ -194,6 +194,9 @@
 
   ;; Log DONE with timestamp
   (setq org-log-done 'time)
+  ;; Log state changes into drawer
+  ;; Note: This unfortunately does not apply to scheduling and done timestamp
+  (setq org-log-into-drawer t)
 
   ;; Doom Emacs default is 'todo.org' but I prefer to use 'inbox.org'
   (setq +org-capture-todo-file "inbox.org")
