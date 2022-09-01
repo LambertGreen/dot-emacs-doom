@@ -42,6 +42,7 @@
     (setq
      doom-font (font-spec :family "Iosevka Nerd Font" :size 15)
      doom-unicode-font (font-spec :family "Iosevka Nerd Font")
+     doom-variable-pitch-font (font-spec :family "Alegreya" :size 18)
      ))
 (if (eq system-type 'windows-nt)
     (setq
