@@ -196,6 +196,11 @@
     :config
     (setq org-expiry-inactive-timestamps t))
 
+  (use-package! org-journal
+    :config
+    (setq org-journal-file-type 'yearly
+          org-journal-enable-agenda-integration t))
+
   ;; Log DONE with timestamp
   (setq org-log-done 'time)
   ;; Log state changes into drawer
