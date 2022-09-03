@@ -191,6 +191,9 @@
   ;; Load habits
   (add-to-list 'org-modules 'org-habit)
 
+  ;; Setup org-checklist
+  (use-package! org-checklist)
+
   ;; Use org-expiry to have timestamps automatically created for tasks
   (use-package! org-expiry
     :config
