@@ -214,7 +214,7 @@
   (setq org-capture-templates
     '(("t" "todo" entry
       (file+headline +org-capture-todo-file "Inbox")
-      "* TODO %?\n%i\n%a" :prepend t)
+      "* TODO %?\n:PROPERTIES:\n:CREATED: %U\n:FROM: %a\n:END:\n" :prepend t)
     ("n" "notes" entry
       (file+headline +org-capture-notes-file "Inbox")
       "* %u %?\n%i\n%a" :prepend t)
@@ -254,28 +254,29 @@
   (add-hook 'org-mode-hook (lambda () (org-pretty-table-mode)))
   )
 
-;; Whenever a TODO entry is created, we want a timestamp
-;;
-(defun lgreen/insert-created-timestamp()
-  (interactive)
-  "Insert a CREATED property using org-expiry.el for TODO entries"
-  (org-expiry-insert-created)
-  (org-back-to-heading)
-  (org-end-of-line)
-  )
+;; Whenever a 'TODO entry is created, we want a timestamp
+;; UPDATE (9/5/22): We want to simply the adding of the created property by updating the capture template instead.
+;; TODO Remove commented out code after validating that this has been working for a few days.
+;; (defun lgreen/insert-created-timestamp()
+;;   (interactive)
+;;   "Insert a CREATED property using org-expiry.el for TODO entries"
+;;   (org-expiry-insert-created)
+;;   (org-back-to-heading)
+;;   (org-end-of-line)
+;;   )
 
 ;; Advice org-insert-todo-heading to insert a created timestamp using org-expiry
-(defadvice org-insert-todo-heading (after lgreen/created-timestamp-advice activate)
-  "Insert a CREATED property using org-expiry.el for TODO entries"
-  (lgreen/insert-created-timestamp))
+;; (defadvice org-insert-todo-heading (after lgreen/created-timestamp-advice activate)
+;;   "Insert a CREATED property using org-expiry.el for TODO entries"
+;;   (lgreen/insert-created-timestamp))
 
 ;; Advice org-capture to insert a created timestamp using org-expiry
-(defadvice org-capture (after lgreen/created-timestamp-advice activate)
-  "Insert a CREATED property using org-expiry.el for TODO entries"
-  ; Test if the captured entry is a TODO, if so insert the created
-  ; timestamp property, otherwise ignore
-  (when (member (org-get-todo-state) org-todo-keywords-1)
-    (lgreen/insert-created-timestamp)))
+;; (defadvice org-capture (after lgreen/created-timestamp-advice activate)
+;;   "Insert a CREATED property using org-expiry.el for TODO entries"
+;;   ; Test if the captured entry is a TODO, if so insert the created
+;;   ; timestamp property, otherwise ignore
+;;   (when (member (org-get-todo-state) org-todo-keywords-1)
+;;     (lgreen/insert-created-timestamp)))
 
 ;; Stop flyspell from stealing ~M-TAB~ from OrgMode
 (eval-after-load 'flyspell '(define-key flyspell-mode-map "\M-\t" nil))
