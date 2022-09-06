@@ -217,7 +217,7 @@
       "* TODO %?\n:PROPERTIES:\n:CREATED: %U\n:FROM: %a\n:END:\n" :prepend t)
     ("n" "notes" entry
       (file+headline +org-capture-notes-file "Inbox")
-      "* %u %?\n%i\n%a" :prepend t)
+      "* %u %?\n:PROPERTIES:\n:CREATED: %U\n:FROM: %a\n:END:\n" :prepend t)
     ("m" "email" entry
       (file+olp +org-capture-todo-file "Inbox")
       "* TODO Mail:%u %?\n%i\n%a" :prepend t)
