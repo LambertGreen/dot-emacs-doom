@@ -192,12 +192,16 @@
   (add-to-list 'org-modules 'org-habit)
 
   ;; Setup org-checklist
+  ;; This package enables the auto-reseting of checkbox state for repeating items.
   (use-package! org-checklist)
 
   ;; Use org-expiry to have timestamps automatically created for tasks
-  (use-package! org-expiry
-    :config
-    (setq org-expiry-inactive-timestamps t))
+  ;; UPDATE (9/6/22): I used this for timestamp creation, however that is now part of the capture template and
+  ;; so I may not need this package any longer.
+  ;; TODO Remove if no longer needed.
+  ;; (use-package! org-expiry
+  ;;   :config
+  ;;   (setq org-expiry-inactive-timestamps t))
 
   (use-package! org-journal
     :config
