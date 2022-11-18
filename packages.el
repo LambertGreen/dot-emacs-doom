@@ -84,3 +84,4 @@
 (package! org-vcard)
 (package! org-contacts)
 (package! systemd-mode)
+(package! strace-mode)
