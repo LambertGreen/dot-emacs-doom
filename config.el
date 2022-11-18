@@ -3,14 +3,21 @@
 ;; Place your private configuration here! Remember, you do not need to run 'doom
 ;; refresh' after modifying this file!
 
+;; Setup Homebrew related settings
+(when (eq system-type 'darwin)
+    (defvar homebrew-prefix)
+    (if (file-directory-p "/opt/homebrew/")
+        (setq homebrew-prefix "/opt/homebrew/")
+        (setq homebrew-prefix "/usr/local/")))
+
 ;; Add Homebrew Emacs site-lisp to load-path
 (when (eq system-type 'darwin)
-  (let ((default-directory "/opt/homebrew/share/emacs/site-lisp"))
+  (let ((default-directory (concat homebrew-prefix "share/emacs/site-lisp")))
     (normal-top-level-add-subdirs-to-load-path)))
 
 ;; Add Homebrew Info to Info path
 (when (eq system-type 'darwin)
-  (add-to-list `Info-directory-list "/opt/homebrew/share/info/"))
+  (add-to-list `Info-directory-list (concat homebrew-prefix "share/info/")))
 
 ;; Some functionality uses this to identify you, e.g. GPG configuration, email
 ;; clients, file templates and snippets.
@@ -35,13 +42,14 @@
     (setq
      doom-font (font-spec :family "Iosevka Nerd Font" :size 15)
      doom-unicode-font (font-spec :family "Iosevka Nerd Font")
+     doom-variable-pitch-font (font-spec :family "Alegreya" :size 18)
      ))
 (if (eq system-type 'windows-nt)
     (setq
      doom-font (font-spec :family "Iosevka NF" :size 15)
      ))
 
-;;; :ui doom-dashboard
+;; :ui doom-dashboard
 (setq fancy-splash-image (concat doom-private-dir "splash.png"))
 
 ;; Set window position and size
@@ -176,42 +184,66 @@
 ;; Org-mode config
 ;;
 (after! org
-  ;; Use org-expiry to have timestamps automatically created for tasks
-  (use-package! org-expiry
-    :config
-    (setq org-expiry-inactive-timestamps t))
-
   ;; Use org-contacts for managing contacts and getting birthday's in the agenda
-  (use-package! org-contacts)
+  (use-package! org-contacts
+    :config (setq org-contacts-files '("~/org/contacts.org")))
+
+  ;; Load habits
+  (add-to-list 'org-modules 'org-habit)
+
+  ;; Setup org-checklist
+  ;; This package enables the auto-reseting of checkbox state for repeating items.
+  (use-package! org-checklist)
+
+  ;; Use org-expiry to have timestamps automatically created for tasks
+  ;; UPDATE (9/6/22): I used this for timestamp creation, however that is now part of the capture template and
+  ;; so I may not need this package any longer.
+  ;; TODO Remove if no longer needed.
+  ;; (use-package! org-expiry
+  ;;   :config
+  ;;   (setq org-expiry-inactive-timestamps t))
+
+  (use-package! org-journal
+    :config
+    (setq org-journal-file-type 'yearly
+          org-journal-enable-agenda-integration t))
 
   ;; Log DONE with timestamp
   (setq org-log-done 'time)
-
-  ;; Doom Emacs default is 'todo.org' but I prefer to use 'inbox.org'
-  (setq +org-capture-todo-file "inbox.org")
+  ;; Log state changes into drawer
+  ;; Note: This unfortunately does not apply to scheduling and done timestamp
+  (setq org-log-into-drawer t)
+  ;; Roll up todo stats from descedents (and not just children)
+  (setq org-hierarchical-todo-statistics nil)
 
   ;; Update the default Doom "todo" to use TODO instead of [ ]
   (setq org-capture-templates
     '(("t" "todo" entry
       (file+headline +org-capture-todo-file "Inbox")
-      "* TODO %?\n%i\n%a" :prepend t)
+      "* TODO %?\n:PROPERTIES:\n:CREATED: %U\n:FROM: %a\n:END:\n" :prepend t)
     ("n" "notes" entry
       (file+headline +org-capture-notes-file "Inbox")
-      "* %u %?\n%i\n%a" :prepend t)
+      "* %u %?\n:PROPERTIES:\n:CREATED: %U\n:FROM: %a\n:END:\n" :prepend t)
     ("m" "email" entry
       (file+olp +org-capture-todo-file "Inbox")
       "* TODO Mail:%u %?\n%i\n%a" :prepend t)
     ("j" "Journal" entry
       (file+olp+datetree +org-capture-journal-file)
       "* %U %?\n%i\n%a" :prepend t)
-    ("p" "Templates for projects")
-    ("pt" "Project-local todo" entry
+    ("p" "Protocol" entry
+      (file+headline +org-capture-notes-file "Inbox")
+      "* %? [[%:link][%:description]] \nCaptured On: %U\n #+BEGIN_QUOTE\n%i\n#+END_QUOTE\n\n\n%?")
+    ("L" "Protocol Link" entry
+      (file+headline +org-capture-notes-file "Inbox")
+      "* %? [[%:link][%:description]] \nCaptured On: %U")
+    ("P" "Templates for projects")
+    ("Pt" "Project-local todo" entry
       (file+headline +org-capture-project-todo-file "Inbox")
       "* TODO %?\n%i\n%a" :prepend t)
-    ("pn" "Project-local notes" entry
+    ("Pn" "Project-local notes" entry
       (file+headline +org-capture-project-notes-file "Inbox")
       "* %U %?\n%i\n%a" :prepend t)
-    ("pc" "Project-local changelog" entry
+    ("Pc" "Project-local changelog" entry
       (file+headline +org-capture-project-changelog-file "Unreleased")
       "* %U %?\n%i\n%a" :prepend t)
     ("o" "Centralized templates for projects")
@@ -228,28 +260,29 @@
   (add-hook 'org-mode-hook (lambda () (org-pretty-table-mode)))
   )
 
-;; Whenever a TODO entry is created, we want a timestamp
-;;
-(defun lgreen/insert-created-timestamp()
-  (interactive)
-  "Insert a CREATED property using org-expiry.el for TODO entries"
-  (org-expiry-insert-created)
-  (org-back-to-heading)
-  (org-end-of-line)
-  )
+;; Whenever a 'TODO entry is created, we want a timestamp
+;; UPDATE (9/5/22): We want to simply the adding of the created property by updating the capture template instead.
+;; TODO Remove commented out code after validating that this has been working for a few days.
+;; (defun lgreen/insert-created-timestamp()
+;;   (interactive)
+;;   "Insert a CREATED property using org-expiry.el for TODO entries"
+;;   (org-expiry-insert-created)
+;;   (org-back-to-heading)
+;;   (org-end-of-line)
+;;   )
 
 ;; Advice org-insert-todo-heading to insert a created timestamp using org-expiry
-(defadvice org-insert-todo-heading (after lgreen/created-timestamp-advice activate)
-  "Insert a CREATED property using org-expiry.el for TODO entries"
-  (lgreen/insert-created-timestamp))
+;; (defadvice org-insert-todo-heading (after lgreen/created-timestamp-advice activate)
+;;   "Insert a CREATED property using org-expiry.el for TODO entries"
+;;   (lgreen/insert-created-timestamp))
 
 ;; Advice org-capture to insert a created timestamp using org-expiry
-(defadvice org-capture (after lgreen/created-timestamp-advice activate)
-  "Insert a CREATED property using org-expiry.el for TODO entries"
-  ; Test if the captured entry is a TODO, if so insert the created
-  ; timestamp property, otherwise ignore
-  (when (member (org-get-todo-state) org-todo-keywords-1)
-    (lgreen/insert-created-timestamp)))
+;; (defadvice org-capture (after lgreen/created-timestamp-advice activate)
+;;   "Insert a CREATED property using org-expiry.el for TODO entries"
+;;   ; Test if the captured entry is a TODO, if so insert the created
+;;   ; timestamp property, otherwise ignore
+;;   (when (member (org-get-todo-state) org-todo-keywords-1)
+;;     (lgreen/insert-created-timestamp)))
 
 ;; Stop flyspell from stealing ~M-TAB~ from OrgMode
 (eval-after-load 'flyspell '(define-key flyspell-mode-map "\M-\t" nil))
@@ -301,14 +334,6 @@
   ;; update `process-environment' with whatever is in `exec-path' right now
   (setenv "PATH" (mapconcat #'identity exec-path path-separator))
   (message "exec-path and process-environment synchronised"))
-
-;; Setup Homebrew related settings
-;;
-(when (eq system-type 'darwin)
-    (defvar homebrew-prefix)
-    (if (file-directory-p "/opt/homebrew/")
-        (setq homebrew-prefix "/opt/homebrew/")
-        (setq homebrew-prefix "/usr/local/")))
 
 ;; LSP Related settings
 ;;
@@ -516,3 +541,43 @@
 
 ;; Set org-roam directory
 (setq org-roam-directory "~/roam")
+
+;;;
+;; Capture floating frame
+;;
+;; taken from: http://www.windley.com/archives/2010/12/capture_mode_and_emacs.shtml
+;;;
+(defadvice org-capture-finalize
+    (after delete-capture-frame activate)
+  "Advise capture-finalize to close the frame"
+  (if (equal "emacsclient-capture" (frame-parameter nil 'name))
+      (delete-frame)))
+
+(defadvice org-capture-destroy
+    (after delete-capture-frame activate)
+  "Advise capture-destroy to close the frame"
+  (if (equal "emacsclient-capture" (frame-parameter nil 'name)
+             (delete-frame))))
+
+;; BUG The dashboard window is not getting deleted
+;; I have validated the body works as expected in the org-protocol capture frame
+(defadvice org-switch-to-buffer-other-window
+    (after delete-other-window activate)
+  "Advise org-switch-to-buffer-other-window to delete the extra window if we're in a capture frame"
+  (if (equal "emacsclient-capture" (frame-parameter nil 'name))
+      (delete-other-windows)))
+
+;; TODO Remove this as it is currently unused
+;; The emacsclient command-line already provides the frame details in the -F parameter
+;; I could not get emacsclient to both eval elisp code and still activate on the org-protocol
+;; input parameter
+(defun make-capture-frame ()
+  "Create a new frame and run org-capture."
+  (interactive)
+  (make-frame '((name . "emacsclient-capture")
+                (width . 120)
+                (height . 15)))
+  (select-frame-by-name "emacsclient-capture")
+  (setq word-wrap 1)
+  (setq truncate-lines nil)
+  (org-capture))
