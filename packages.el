@@ -84,3 +84,4 @@
 (package! org-vcard)
 (package! org-contacts)
 (package! dot-mode :recipe (:host github :repo "wyrickre/dot-mode"))
+(package! org-remark)
