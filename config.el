@@ -55,7 +55,7 @@
      ))
 
 ;; :ui doom-dashboard
-(setq fancy-splash-image (concat doom-private-dir "splash.png"))
+(setq fancy-splash-image (concat doom-user-dir "splash.png"))
 
 ;; Set window position and size
 ;; TODO: This code works when evaluated after Emacs start, but does not result
@@ -323,12 +323,14 @@
                   ('light (load-theme 'doom-one-light t))
                   ('dark (load-theme 'doom-one t))))))
 
-;; Function to add to the Emacs path - swiped from https://gitlab.com/xeijin-dev/doom-config/blob/master/config.org
+;; Function to add to the Emacs path
+;; swiped from https://gitlab.com/xeijin-dev/doom-config/blob/master/config.org
 (defun lgreen/add-to-emacs-path (append-path &rest path)
-  "add PATH to both emacs own `exec-path' and to the `PATH' inherited by emacs from the OS (aka `process-environment').
-  APPEND-PATH should be non-nil if you want the added path to take priority over existing paths
-
-  this does not modify the actual OS `PATH' just the two emacs internal variables which deal with paths:
+  "add PATH to both emacs own `exec-path' and to the `PATH' inherited by emacs
+   from the OS (aka `process-environment'). APPEND-PATH should be non-nil if
+   you want the added path to take priority over existing paths this does not
+   modify the actual OS `PATH' just the two emacs internal variables which deal
+   with paths:
 
   `exec-path' is used when executables are called from emacs directly
   `process-environment' is used when executables are called via the `shell'"
@@ -382,10 +384,10 @@
 (after! ahk-mode
   (defun ahk-comment-block-dwim (arg)
     "Comment or uncomment current line or region using block notation.
-  For details, see `comment-dwim'."
+     For details, see `comment-dwim'."
     (interactive "*P")
     (require 'newcomment)
-    (ahk-comment-dwim)))
+    (ahk-comment-dwim arg)))
 
 ;; Will re-use or startup SSH Agent
 (keychain-refresh-environment)

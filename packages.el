@@ -86,3 +86,4 @@
 (package! systemd-mode)
 (package! strace-mode)
 (package! dot-mode :recipe (:host github :repo "wyrickre/dot-mode"))
+(package! org-remark)

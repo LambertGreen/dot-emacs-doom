@@ -17,7 +17,10 @@
 ;; Doom supports compiling elisp files after running upgrade/sync, however this can take a long time
 ;; and also result in one or two files never completing the compilation step. So we go with deffered
 ;; compilation instead i.e. let Emacs compile elisp files as they get loaded.
-(setq native-comp-deferred-compilation t)
+;;
+;; FIXME: The below config variable has been deprecated, with a new one replacing it, but I
+;; not sure if the default value is the one we want or not.  So after testing the default decide on whether we can simply remove this commented out code or add the new variable with a non-default value.
+;; (setq native-comp-deferred-compilation t)
 
 ;; Now that we have enabled deferred complilation we end up getting warnings on startup, that
 ;; show up in a popup buffer.  We don't want that buffer showing up and rather want the warnings
@@ -42,7 +45,7 @@
        doom-dashboard    ; a nifty splash screen for Emacs
        doom-quit         ; DOOM quit-message prompts when you quit Emacs
        (emoji +unicode)  ; 🙂
-       fill-column       ; a `fill-column' indicator
+       ;; fill-column       ; a `fill-column' indicator
        hl-todo           ; highlight TODO/FIXME/NOTE/DEPRECATED/HACK/REVIEW
        hydra
        indent-guides     ; highlighted indent columns
