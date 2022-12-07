@@ -10,6 +10,10 @@
         (setq homebrew-prefix "/opt/homebrew/")
         (setq homebrew-prefix "/usr/local/")))
 
+(when (eq system-type 'gnu/linux)
+  (defvar homebrew-prefix)
+  (setq homebrew-prefix "/home/linuxbrew/.linuxbrew/"))
+
 ;; Add Homebrew Emacs site-lisp to load-path
 (when (eq system-type 'darwin)
   (let ((default-directory (concat homebrew-prefix "share/emacs/site-lisp")))
