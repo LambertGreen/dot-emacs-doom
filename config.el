@@ -346,7 +346,7 @@
 
 ;; Set path to clangd (required when using clangd as cpp lsp)
 (when (eq system-type 'darwin)
-  (setq lsp-clients-clangd-executable (concat homebrew-prefix "opt/llvm/bin/clangd")))
+  (setq lsp-clients-clangd-executable "/Library/Developer/CommandLineTools/usr/bin/clangd "))
 
 ;; macOS: Set locate to use unix locate command instead of `mdfind` because `mdfind` is not indexing
 ;; all dev files.
