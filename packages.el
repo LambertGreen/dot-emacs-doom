@@ -85,3 +85,4 @@
 (package! org-contacts)
 (package! dot-mode :recipe (:host github :repo "wyrickre/dot-mode"))
 (package! speed-type)
+(package! vlf)
