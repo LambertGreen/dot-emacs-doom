@@ -215,6 +215,8 @@
   (setq org-log-into-drawer t)
   ;; Roll up todo stats from descedents (and not just children)
   (setq org-hierarchical-todo-statistics nil)
+  ;; Set diary file to an org file
+  (setq org-agenda-diary-file "~/org/diary.org")
 
   ;; Update the default Doom "todo" to use TODO instead of [ ]
   (setq org-capture-templates
