@@ -353,7 +353,8 @@
 
 ;; Set path to clangd (required when using clangd as cpp lsp)
 (when (eq system-type 'darwin)
-  (setq lsp-clients-clangd-executable "/Library/Developer/CommandLineTools/usr/bin/clangd "))
+  (setq lsp-clangd-binary-path "/Library/Developer/CommandLineTools/usr/bin/clangd" ))
+  ;; (setq lsp-clients-clangd-executable "/Library/Developer/CommandLineTools/usr/bin/clangd "))
 
 (when (eq system-type 'gnu/linux)
   (setq lsp-clangd-binary-path (concat homebrew-prefix "Cellar/llvm@14/14.0.6/bin/clangd")))
