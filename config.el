@@ -346,6 +346,10 @@
 
 ;; LSP Related settings
 ;;
+;; TODO Don't setup LSP unless a project needs it
+;; Rather put LSP configuration in functions, and have those functions
+;; called only by projects needing it.
+;;
 ;; Set cache directory for ccls to be under home directory rather than polutting project directories
 (when (eq system-type 'darwin)
   (setq ccls-initialization-options
