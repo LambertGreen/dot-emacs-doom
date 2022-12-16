@@ -27,6 +27,10 @@
 ;; silently written to the *Messages* buffer
 (setq native-comp-async-report-warnings-errors nil)
 
+;; Started getting more non-actionable warnings showing in the display area, so we increase the minimum
+;; level to showing a warning to ":error".
+(setq warning-minimum-level :error)
+
 (doom! :input
        ;;chinese
        ;;japanese
