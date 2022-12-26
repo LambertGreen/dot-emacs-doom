@@ -93,3 +93,4 @@
 (package! esxml :recipe (:host github :repo "tali713/esxml"))
 (package! org-web-tools :recipe (:host github :repo "alphapapa/org-web-tools"))
 (package! nov)
+(package! olivetti)
