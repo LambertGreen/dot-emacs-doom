@@ -177,6 +177,7 @@
 (add-to-list 'auto-mode-alist '("\\.manifest\\'" . json-mode))
 (add-to-list 'auto-mode-alist '("\\.gitconfig\\'" . gitconfig-mode))
 (add-to-list 'auto-mode-alist '("\\.gitignore\\'" . gitignore-mode))
+(add-to-list 'auto-mode-alist '("\\.epub\\'" . nov-mode))
 
 ;; Set english dictionary words file for company-ispell
 ;; Only required on Windows.
