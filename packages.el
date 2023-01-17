@@ -73,8 +73,6 @@
 (package! emacs-bazel-mode :recipe (:host github :repo "bazelbuild/emacs-bazel-mode"))
 (package! nix-mode)
 (package! org-pretty-table :recipe (:host github :repo "Fuco1/org-pretty-table"))
-(package! tree-sitter)
-(package! tree-sitter-langs)
 (package! ov-highlight :recipe (:host github :repo "jkitchin/ov-highlight"))
 (package! palette)
 (package! mermaid-mode)
