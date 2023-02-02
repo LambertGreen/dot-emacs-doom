@@ -601,3 +601,13 @@
   (setq word-wrap 1)
   (setq truncate-lines nil)
   (org-capture))
+
+;; Below code snippet acquired from here:
+;; - https://stackoverflow.com/questions/10969617/hiding-markup-elements-in-org-mode
+(defun lgreen/org-toggle-emphasis ()
+  "Toggle hiding/showing of org emphasize markers."
+  (interactive)
+  (if org-hide-emphasis-markers
+      (set-variable 'org-hide-emphasis-markers nil)
+    (set-variable 'org-hide-emphasis-markers t))
+  (org-mode-restart))
