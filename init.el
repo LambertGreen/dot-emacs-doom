@@ -17,12 +17,19 @@
 ;; Doom supports compiling elisp files after running upgrade/sync, however this can take a long time
 ;; and also result in one or two files never completing the compilation step. So we go with deffered
 ;; compilation instead i.e. let Emacs compile elisp files as they get loaded.
-(setq native-comp-deferred-compilation t)
+;;
+;; FIXME: The below config variable has been deprecated, with a new one replacing it, but I
+;; not sure if the default value is the one we want or not.  So after testing the default decide on whether we can simply remove this commented out code or add the new variable with a non-default value.
+;; (setq native-comp-deferred-compilation t)
 
 ;; Now that we have enabled deferred complilation we end up getting warnings on startup, that
 ;; show up in a popup buffer.  We don't want that buffer showing up and rather want the warnings
 ;; silently written to the *Messages* buffer
 (setq native-comp-async-report-warnings-errors nil)
+
+;; Started getting more non-actionable warnings showing in the display area, so we increase the minimum
+;; level to showing a warning to ":error".
+(setq warning-minimum-level :error)
 
 (doom! :input
        ;;chinese
@@ -42,7 +49,7 @@
        doom-dashboard    ; a nifty splash screen for Emacs
        doom-quit         ; DOOM quit-message prompts when you quit Emacs
        (emoji +unicode)  ; 🙂
-       fill-column       ; a `fill-column' indicator
+       ;;fill-column       ; a `fill-column' indicator
        hl-todo           ; highlight TODO/FIXME/NOTE/DEPRECATED/HACK/REVIEW
        hydra
        indent-guides     ; highlighted indent columns
@@ -122,6 +129,7 @@
        ;;taskrunner        ; taskrunner for all your projects
        ;;terraform         ; infrastructure as code
        ;;tmux              ; an API for interacting with tmux
+       tree-sitter         ;
        ;;upload            ; map local to remote projects via ssh/ftp
 
        :os
@@ -133,7 +141,8 @@
        ;;agda              ; types of types of types of types...
        ;;assembly          ; assembly for fun or debugging
        (cc                 ; C/C++/Obj-C madness
-        +lsp)
+        +lsp
+        +tree-sitter)
        ;;beancount         ; mind the GAAP
        ;;clojure           ; java with a lisp
        ;;common-lisp       ; if you've seen one lisp, you've seen them all
@@ -159,7 +168,9 @@
        ;;hy                ; readability of scheme w/ speed of python
        ;;idris             ; a language you can depend on
        json                ; At least it ain't XML
-       (java +lsp)         ; the poster child for carpal tunnel syndrome
+       (java               ; the poster child for carpal tunnel syndrome
+        +lsp
+        +tree-sitter)
        (javascript +lsp)   ; all(hope(abandon(ye(who(enter(here))))))
        ;;julia             ; a better, faster MATLAB
        ;;kotlin            ; a better, slicker Java(Script)
@@ -185,9 +196,11 @@
        ;;php               ; perl's insecure younger brother
        ;;plantuml          ; diagrams for confusing people more
        ;;purescript        ; javascript, but functional
-       ( python
+       (python
+         +lsp
          +pyenv
-         +lsp)             ; beautiful is better than ugly
+         +pyright
+         +tree-sitter)     ; beautiful is better than ugly
        ;;qt                ; the 'cutest' gui framework ever
        ;;racket            ; a DSL for DSLs
        ;;raku              ; the artist formerly known as perl6

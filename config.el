@@ -10,6 +10,10 @@
         (setq homebrew-prefix "/opt/homebrew/")
         (setq homebrew-prefix "/usr/local/")))
 
+(when (eq system-type 'gnu/linux)
+  (defvar homebrew-prefix)
+  (setq homebrew-prefix "/home/linuxbrew/.linuxbrew/"))
+
 ;; Add Homebrew Emacs site-lisp to load-path
 (when (eq system-type 'darwin)
   (let ((default-directory (concat homebrew-prefix "share/emacs/site-lisp")))
@@ -37,6 +41,7 @@
 (if (eq system-type 'gnu/linux)
     (setq
      doom-font (font-spec :family "Iosevka Nerd Font" :size 15)
+     doom-unicode-font (font-spec :family "Iosevka Nerd Font")
      ))
 (if (eq system-type 'darwin)
     (setq
@@ -50,7 +55,7 @@
      ))
 
 ;; :ui doom-dashboard
-(setq fancy-splash-image (concat doom-private-dir "splash.png"))
+(setq fancy-splash-image (concat doom-user-dir "splash.png"))
 
 ;; Set window position and size
 ;; TODO: This code works when evaluated after Emacs start, but does not result
@@ -172,6 +177,7 @@
 (add-to-list 'auto-mode-alist '("\\.manifest\\'" . json-mode))
 (add-to-list 'auto-mode-alist '("\\.gitconfig\\'" . gitconfig-mode))
 (add-to-list 'auto-mode-alist '("\\.gitignore\\'" . gitignore-mode))
+(add-to-list 'auto-mode-alist '("\\.epub\\'" . nov-mode))
 
 ;; Set english dictionary words file for company-ispell
 ;; Only required on Windows.
@@ -185,8 +191,9 @@
 ;;
 (after! org
   ;; Use org-contacts for managing contacts and getting birthday's in the agenda
-  (use-package! org-contacts
-    :config (setq org-contacts-files '("~/org/contacts.org")))
+  ;; TODO Running into issues with 'org-contacts' during Doom setup and startup
+  ; (use-package! org-contacts
+  ;   :config (setq org-contacts-files '("~/org/contacts.org")))
 
   ;; Load habits
   (add-to-list 'org-modules 'org-habit)
@@ -215,6 +222,8 @@
   (setq org-log-into-drawer t)
   ;; Roll up todo stats from descedents (and not just children)
   (setq org-hierarchical-todo-statistics nil)
+  ;; Set diary file to an org file
+  (setq org-agenda-diary-file "~/org/diary.org")
 
   ;; Update the default Doom "todo" to use TODO instead of [ ]
   (setq org-capture-templates
@@ -313,12 +322,14 @@
                   ('light (load-theme 'doom-one-light t))
                   ('dark (load-theme 'doom-one t))))))
 
-;; Function to add to the Emacs path - swiped from https://gitlab.com/xeijin-dev/doom-config/blob/master/config.org
+;; Function to add to the Emacs path
+;; swiped from https://gitlab.com/xeijin-dev/doom-config/blob/master/config.org
 (defun lgreen/add-to-emacs-path (append-path &rest path)
-  "add PATH to both emacs own `exec-path' and to the `PATH' inherited by emacs from the OS (aka `process-environment').
-  APPEND-PATH should be non-nil if you want the added path to take priority over existing paths
-
-  this does not modify the actual OS `PATH' just the two emacs internal variables which deal with paths:
+  "add PATH to both emacs own `exec-path' and to the `PATH' inherited by emacs
+   from the OS (aka `process-environment'). APPEND-PATH should be non-nil if
+   you want the added path to take priority over existing paths this does not
+   modify the actual OS `PATH' just the two emacs internal variables which deal
+   with paths:
 
   `exec-path' is used when executables are called from emacs directly
   `process-environment' is used when executables are called via the `shell'"
@@ -332,6 +343,10 @@
 
 ;; LSP Related settings
 ;;
+;; TODO Don't setup LSP unless a project needs it
+;; Rather put LSP configuration in functions, and have those functions
+;; called only by projects needing it.
+;;
 ;; Set cache directory for ccls to be under home directory rather than polutting project directories
 (when (eq system-type 'darwin)
   (setq ccls-initialization-options
@@ -339,7 +354,12 @@
 
 ;; Set path to clangd (required when using clangd as cpp lsp)
 (when (eq system-type 'darwin)
-  (setq lsp-clients-clangd-executable (concat homebrew-prefix "opt/llvm/bin/clangd")))
+  (setq lsp-clangd-binary-path "/Library/Developer/CommandLineTools/usr/bin/clangd" ))
+  ;; (setq lsp-clients-clangd-executable "/Library/Developer/CommandLineTools/usr/bin/clangd "))
+
+(when (eq system-type 'gnu/linux)
+  (setq lsp-clangd-binary-path (concat homebrew-prefix "Cellar/llvm@14/14.0.6/bin/clangd")))
+  ;; (setq lsp-clients-clangd-executable lsp-clangd-binary-path))
 
 ;; macOS: Set locate to use unix locate command instead of `mdfind` because `mdfind` is not indexing
 ;; all dev files.
@@ -369,10 +389,10 @@
 (after! ahk-mode
   (defun ahk-comment-block-dwim (arg)
     "Comment or uncomment current line or region using block notation.
-  For details, see `comment-dwim'."
+     For details, see `comment-dwim'."
     (interactive "*P")
     (require 'newcomment)
-    (ahk-comment-dwim)))
+    (ahk-comment-dwim arg)))
 
 ;; Will re-use or startup SSH Agent
 (keychain-refresh-environment)
@@ -576,3 +596,13 @@
   (setq word-wrap 1)
   (setq truncate-lines nil)
   (org-capture))
+
+;; Below code snippet acquired from here:
+;; - https://stackoverflow.com/questions/10969617/hiding-markup-elements-in-org-mode
+(defun lgreen/org-toggle-emphasis ()
+  "Toggle hiding/showing of org emphasize markers."
+  (interactive)
+  (if org-hide-emphasis-markers
+      (set-variable 'org-hide-emphasis-markers nil)
+    (set-variable 'org-hide-emphasis-markers t))
+  (org-mode-restart))
