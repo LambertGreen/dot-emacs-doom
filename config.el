@@ -45,7 +45,7 @@
      ))
 (if (eq system-type 'darwin)
     (setq
-     doom-font (font-spec :family "Iosevka Nerd Font" :size 15)
+     doom-font (font-spec :family "Iosevka Nerd Font" :size 13)
      doom-unicode-font (font-spec :family "Iosevka Nerd Font")
      doom-variable-pitch-font (font-spec :family "Alegreya" :size 18)
      ))
