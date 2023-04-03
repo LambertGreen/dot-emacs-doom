@@ -298,13 +298,8 @@
 ;; Stop flyspell from stealing ~M-TAB~ from OrgMode
 (eval-after-load 'flyspell '(define-key flyspell-mode-map "\M-\t" nil))
 
-;; Transparency
-;;
-(set-frame-parameter (selected-frame) 'alpha '(97 97))
-(add-to-list 'default-frame-alist '(alpha . (97 . 97)))
-
-;; Set transparency of emacs
- (defun transparency (value)
+;; Function to set transparency of emacs
+ (defun lgreen/transparency (value)
    "Sets the transparency of the frame window. 0=transparent/100=opaque"
    (interactive "nTransparency Value 0 - 100 opaque:")
    (set-frame-parameter (selected-frame) 'alpha value))
