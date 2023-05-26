@@ -45,7 +45,7 @@
      ))
 (if (eq system-type 'darwin)
     (setq
-     doom-font (font-spec :family "Iosevka Nerd Font" :size 15)
+     doom-font (font-spec :family "Iosevka Nerd Font" :size 13)
      doom-unicode-font (font-spec :family "Iosevka Nerd Font")
      doom-variable-pitch-font (font-spec :family "Alegreya" :size 18)
      ))
@@ -86,12 +86,14 @@
 
 ;; Set org directory
 (setq org-directory "~/org/")
+
 ;; Set org agenda files
 ;; - Only include *.org files (we don't want to include files under the .git directory)
 ;; - Note: newly added files in an editing session will not be picked up until this line is run again
 (setq org-agenda-files (directory-files-recursively org-directory "\\.org$"))
+
 ;; Set projects directory
-(setq projectile-project-search-path '(("~/org/") ("~/dev/" . 4)))
+(setq projectile-project-search-path '(("~/org/") ("~/roam/") ("~/dev/" . 5)))
 
 ;; If you want to change the style of line numbers, change this to `relative' or
 ;; `nil' to disable it:
@@ -191,8 +193,9 @@
 ;;
 (after! org
   ;; Use org-contacts for managing contacts and getting birthday's in the agenda
-  (use-package! org-contacts
-    :config (setq org-contacts-files '("~/org/contacts.org")))
+  ;; TODO Running into issues with 'org-contacts' during Doom setup and startup
+  ; (use-package! org-contacts
+  ;   :config (setq org-contacts-files '("~/org/contacts.org")))
 
   ;; Load habits
   (add-to-list 'org-modules 'org-habit)
@@ -297,13 +300,8 @@
 ;; Stop flyspell from stealing ~M-TAB~ from OrgMode
 (eval-after-load 'flyspell '(define-key flyspell-mode-map "\M-\t" nil))
 
-;; Transparency
-;;
-(set-frame-parameter (selected-frame) 'alpha '(97 97))
-(add-to-list 'default-frame-alist '(alpha . (97 . 97)))
-
-;; Set transparency of emacs
- (defun transparency (value)
+;; Function to set transparency of emacs
+ (defun lgreen/transparency (value)
    "Sets the transparency of the frame window. 0=transparent/100=opaque"
    (interactive "nTransparency Value 0 - 100 opaque:")
    (set-frame-parameter (selected-frame) 'alpha value))
@@ -602,3 +600,13 @@
   (setq word-wrap 1)
   (setq truncate-lines nil)
   (org-capture))
+
+;; Below code snippet acquired from here:
+;; - https://stackoverflow.com/questions/10969617/hiding-markup-elements-in-org-mode
+(defun lgreen/org-toggle-emphasis ()
+  "Toggle hiding/showing of org emphasize markers."
+  (interactive)
+  (if org-hide-emphasis-markers
+      (set-variable 'org-hide-emphasis-markers nil)
+    (set-variable 'org-hide-emphasis-markers t))
+  (org-mode-restart))

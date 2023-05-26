@@ -80,7 +80,8 @@
 (package! tldr)
 (package! devdocs :recipe (:host github :repo "astoff/devdocs.el"))
 (package! org-vcard)
-(package! org-contacts)
+; TODO: Running into issues with 'org-contacts' so disabling for now
+; (package! org-contacts)
 (package! systemd-mode)
 (package! strace-mode)
 (package! dot-mode :recipe (:host github :repo "wyrickre/dot-mode"))

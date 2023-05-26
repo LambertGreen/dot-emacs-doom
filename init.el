@@ -148,7 +148,7 @@
        ;;common-lisp       ; if you've seen one lisp, you've seen them all
        ;;coq               ; proofs-as-programs
        ;;crystal           ; ruby at the speed of c
-       ;;csharp            ; unity, .NET, and mono shenanigans
+       csharp              ; unity, .NET, and mono shenanigans
        data                ; config/data formats
        ;;(dart +flutter)   ; paint ui and not much else
        ;;dhall
@@ -178,7 +178,9 @@
        ;;lean
        ;;factor
        ;;ledger            ; an accounting system in Emacs
-       lua                 ; one-based indices? one-based indices
+       (lua                ; one-based indices? one-based indices
+        +lsp
+        +tree-sitter)
        markdown            ; writing docs for people to ignore
        ;;nim               ; python + lisp at the speed of c
        nix               ; I hereby declare "nix geht mehr!"
