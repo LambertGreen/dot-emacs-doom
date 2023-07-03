@@ -217,6 +217,8 @@
     (setq org-journal-file-type 'yearly
           org-journal-enable-agenda-integration t))
 
+  (use-package! org-collector)
+
   ;; Log DONE with timestamp
   (setq org-log-done 'time)
   ;; Log state changes into drawer

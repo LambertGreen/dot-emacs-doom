@@ -93,3 +93,4 @@
 (package! org-web-tools :recipe (:host github :repo "alphapapa/org-web-tools"))
 (package! nov)
 (package! olivetti)
+(package! org-contrib)
