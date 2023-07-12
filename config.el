@@ -271,6 +271,26 @@
 
   ;; Make org-mode tables pretty
   (add-hook 'org-mode-hook (lambda () (org-pretty-table-mode)))
+
+  ;; Bigger size font for Org headings
+  ;;
+  ;; Below was taken from DistroTube.
+  ;; I don't quite like the color changes, but I did want to use a variable pitch font and
+  ;; modify the heading sizes.
+  ;;
+  ;; TODO: Do some tweaking yourself
+  ;; (dolist
+  ;;     (face
+  ;;      '((org-level-1 1.7 "#51afef" ultra-bold)
+  ;;        (org-level-2 1.6 "#c678dd" extra-bold)
+  ;;        (org-level-3 1.5 "#98be65" bold)
+  ;;        (org-level-4 1.4 "#da8548" semi-bold)
+  ;;        (org-level-5 1.3 "#5699af" normal)
+  ;;        (org-level-6 1.2 "#a9a1e1" normal)
+  ;;        (org-level-7 1.1 "#46d9ff" normal)
+  ;;        (org-level-8 1.0 "#ff6c6b" normal)))
+  ;;   (set-face-attribute (nth 0 face) nil :font doom-variable-pitch-font :weight (nth 3 face) :height (nth 1 face) :foreground (nth 2 face)))
+  ;; (set-face-attribute 'org-table nil :font doom-font :weight 'normal :height 1.0 :foreground "#bfafdf")
   )
 
 ;; Whenever a 'TODO entry is created, we want a timestamp
