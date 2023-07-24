@@ -484,14 +484,10 @@
 (setq-default indent-tabs-mode nil)
 
 ;; Make comments and code keywords italics
-;; Not using this anylonger because of the affect it has in Emacs running inside a terminal.
-;; The italics is too thin and makes the text hard to read.
-;;
-;; TODO consider removing the below if it is not used over a long period of time.
-;;
-;; (custom-set-faces!
-;;   '(font-lock-comment-face :slant italic)
-;;   '(font-lock-keyword-face :slant italic))
+;; Update (7/24/23): Looks like this is working fine with Wezterm as the terminal
+(custom-set-faces!
+  '(font-lock-comment-face :slant italic)
+  '(font-lock-keyword-face :slant italic))
 
 ;; In terminal mode make code comment more readable
 ;; TODO consider removing.
