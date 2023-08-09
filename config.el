@@ -248,8 +248,6 @@
   ;; Log state changes into drawer
   ;; Note: This unfortunately does not apply to scheduling and done timestamp
   (setq org-log-into-drawer t)
-  ;; Roll up todo stats from descedents (and not just children)
-  (setq org-hierarchical-todo-statistics nil)
   ;; Set diary file to an org file
   (setq org-agenda-diary-file "~/org/diary.org")
 
