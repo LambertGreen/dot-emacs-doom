@@ -94,3 +94,4 @@
 (package! nov)
 (package! olivetti)
 (package! org-contrib)
+(package! dired-narrow)
