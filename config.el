@@ -248,6 +248,7 @@
   ;; Log state changes into drawer
   ;; Note: This unfortunately does not apply to scheduling and done timestamp
   (setq org-log-into-drawer t)
+  (setq org-agenda-log-mode-items '(closed clock state))
   ;; Set diary file to an org file
   (setq org-agenda-diary-file "~/org/diary.org")
 
