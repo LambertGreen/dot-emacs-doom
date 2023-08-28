@@ -245,6 +245,12 @@
 
   ;; Log DONE with timestamp
   (setq org-log-done 'time)
+
+  ;; Log rescheduling
+  ;; BUG: Having trouble using the below config. It breaks the rescheduling from happening
+  ;; For now I am trying to use the STARTUP option instead
+  ;; (setq org-log-reschedule 'time)
+
   ;; Log state changes into drawer
   ;; Note: This unfortunately does not apply to scheduling and done timestamp
   (setq org-log-into-drawer t)
