@@ -95,3 +95,4 @@
 (package! olivetti)
 (package! org-contrib)
 (package! dired-narrow)
+(package! catppuccin-theme)
