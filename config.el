@@ -85,7 +85,7 @@
       evil-vsplit-window-right t)
 
 ;; Set org directory
-(setq org-directory "~/org/")
+(setq org-directory "~/dev/my/org/")
 
 ;; Set org agenda files
 ;; - Only include *.org files (we don't want to include files under the .git directory)
@@ -93,7 +93,7 @@
 (setq org-agenda-files (directory-files-recursively org-directory "\\.org$"))
 
 ;; Set projects directory
-(setq projectile-project-search-path '(("~/org/") ("~/roam/") ("~/dev/" . 5)))
+(setq projectile-project-search-path '(("~/dev/" . 5)))
 
 ;; If you want to change the style of line numbers, change this to `relative' or
 ;; `nil' to disable it:
@@ -195,7 +195,7 @@
   ;; Use org-contacts for managing contacts and getting birthday's in the agenda
   ;; TODO Running into issues with 'org-contacts' during Doom setup and startup
   (use-package! org-contacts
-    :config (setq org-contacts-files '("~/org/contacts.org")))
+    :config (setq org-contacts-files '("~/my/dev/org/contacts.org")))
 
   ;; Load habits
   (add-to-list 'org-modules 'org-habit)
@@ -250,7 +250,7 @@
   (setq org-log-into-drawer t)
   (setq org-agenda-log-mode-items '(closed clock state))
   ;; Set diary file to an org file
-  (setq org-agenda-diary-file "~/org/diary.org")
+  (setq org-agenda-diary-file "~/dev/my/org/diary.org")
 
   ;; Update the default Doom "todo" to use TODO instead of [ ]
   (setq org-capture-templates
@@ -598,7 +598,7 @@
   )
 
 ;; Set org-roam directory
-(setq org-roam-directory "~/roam")
+(setq org-roam-directory "~/dev/my/roam")
 
 ;;;
 ;; Capture floating frame
