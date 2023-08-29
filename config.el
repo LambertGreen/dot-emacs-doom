@@ -195,7 +195,7 @@
   ;; Use org-contacts for managing contacts and getting birthday's in the agenda
   ;; TODO Running into issues with 'org-contacts' during Doom setup and startup
   (use-package! org-contacts
-    :config (setq org-contacts-files '("~/my/dev/org/contacts.org")))
+    :config (setq org-contacts-files '("~/dev/my/org/contacts.org")))
 
   ;; Load habits
   (add-to-list 'org-modules 'org-habit)
