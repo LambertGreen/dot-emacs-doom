@@ -47,7 +47,7 @@
     (setq
      doom-font (font-spec :family "Iosevka Nerd Font" :size 13)
      doom-unicode-font (font-spec :family "Iosevka Nerd Font")
-     doom-variable-pitch-font (font-spec :family "Alegreya" :size 18)
+     doom-variable-pitch-font (font-spec :family "Iosevka Nerd Font Propo" :size 18)
      ))
 (if (eq system-type 'windows-nt)
     (setq
@@ -85,7 +85,7 @@
       evil-vsplit-window-right t)
 
 ;; Set org directory
-(setq org-directory "~/org/")
+(setq org-directory "~/dev/my/org/")
 
 ;; Set org agenda files
 ;; - Only include *.org files (we don't want to include files under the .git directory)
@@ -93,7 +93,7 @@
 (setq org-agenda-files (directory-files-recursively org-directory "\\.org$"))
 
 ;; Set projects directory
-(setq projectile-project-search-path '(("~/org/") ("~/roam/") ("~/dev/" . 5)))
+(setq projectile-project-search-path '(("~/dev/" . 5)))
 
 ;; If you want to change the style of line numbers, change this to `relative' or
 ;; `nil' to disable it:
@@ -194,8 +194,8 @@
 (after! org
   ;; Use org-contacts for managing contacts and getting birthday's in the agenda
   ;; TODO Running into issues with 'org-contacts' during Doom setup and startup
-  ; (use-package! org-contacts
-  ;   :config (setq org-contacts-files '("~/org/contacts.org")))
+  (use-package! org-contacts
+    :config (setq org-contacts-files '("~/dev/my/org/contacts.org")))
 
   ;; Load habits
   (add-to-list 'org-modules 'org-habit)
@@ -217,15 +217,46 @@
     (setq org-journal-file-type 'yearly
           org-journal-enable-agenda-integration t))
 
+  (use-package! org-collector)
+
+  (setq org-todo-keywords
+        '((sequence
+           "TODO(t!)"  ; A task that needs doing & is ready to do
+           "PROJ(p!)"  ; A project, which usually contains other tasks
+           "LOOP(r!)"  ; A recurring task
+           "STRT(s!)"  ; A task that is in progress
+           "WAIT(w@/!)"  ; Something external is holding up this task
+           "HOLD(h@/!)"  ; This task is paused/on hold because of me
+           "IDEA(i)"  ; An unconfirmed and unapproved task or notion
+           "|"
+           "DONE(d!)"  ; Task successfully completed
+           "KILL(k@/!)") ; Task was cancelled, aborted or is no longer applicable
+          (sequence
+           "[ ](T)"   ; A task that needs doing
+           "[-](S)"   ; Task is in progress
+           "[?](W)"   ; Task is being held up or paused
+           "|"
+           "[X](D)")  ; Task was completed
+          (sequence
+           "|"
+           "OKAY(o)"
+           "YES(y)"
+           "NO(n)")))
+
   ;; Log DONE with timestamp
   (setq org-log-done 'time)
+
+  ;; Log rescheduling
+  ;; BUG: Having trouble using the below config. It breaks the rescheduling from happening
+  ;; For now I am trying to use the STARTUP option instead
+  ;; (setq org-log-reschedule 'time)
+
   ;; Log state changes into drawer
   ;; Note: This unfortunately does not apply to scheduling and done timestamp
   (setq org-log-into-drawer t)
-  ;; Roll up todo stats from descedents (and not just children)
-  (setq org-hierarchical-todo-statistics nil)
+  (setq org-agenda-log-mode-items '(closed clock state))
   ;; Set diary file to an org file
-  (setq org-agenda-diary-file "~/org/diary.org")
+  (setq org-agenda-diary-file "~/dev/my/org/diary.org")
 
   ;; Update the default Doom "todo" to use TODO instead of [ ]
   (setq org-capture-templates
@@ -269,6 +300,26 @@
 
   ;; Make org-mode tables pretty
   (add-hook 'org-mode-hook (lambda () (org-pretty-table-mode)))
+
+  ;; Bigger size font for Org headings
+  ;;
+  ;; Below was taken from DistroTube.
+  ;; I don't quite like the color changes, but I did want to use a variable pitch font and
+  ;; modify the heading sizes.
+  ;;
+  ;; TODO: Do some tweaking yourself
+  ;; (dolist
+  ;;     (face
+  ;;      '((org-level-1 1.7 "#51afef" ultra-bold)
+  ;;        (org-level-2 1.6 "#c678dd" extra-bold)
+  ;;        (org-level-3 1.5 "#98be65" bold)
+  ;;        (org-level-4 1.4 "#da8548" semi-bold)
+  ;;        (org-level-5 1.3 "#5699af" normal)
+  ;;        (org-level-6 1.2 "#a9a1e1" normal)
+  ;;        (org-level-7 1.1 "#46d9ff" normal)
+  ;;        (org-level-8 1.0 "#ff6c6b" normal)))
+  ;;   (set-face-attribute (nth 0 face) nil :font doom-variable-pitch-font :weight (nth 3 face) :height (nth 1 face) :foreground (nth 2 face)))
+  ;; (set-face-attribute 'org-table nil :font doom-font :weight 'normal :height 1.0 :foreground "#bfafdf")
   )
 
 ;; Whenever a 'TODO entry is created, we want a timestamp
@@ -462,14 +513,10 @@
 (setq-default indent-tabs-mode nil)
 
 ;; Make comments and code keywords italics
-;; Not using this anylonger because of the affect it has in Emacs running inside a terminal.
-;; The italics is too thin and makes the text hard to read.
-;;
-;; TODO consider removing the below if it is not used over a long period of time.
-;;
-;; (custom-set-faces!
-;;   '(font-lock-comment-face :slant italic)
-;;   '(font-lock-keyword-face :slant italic))
+;; Update (7/24/23): Looks like this is working fine with Wezterm as the terminal
+(custom-set-faces!
+  '(font-lock-comment-face :slant italic)
+  '(font-lock-keyword-face :slant italic))
 
 ;; In terminal mode make code comment more readable
 ;; TODO consider removing.
@@ -557,7 +604,7 @@
   )
 
 ;; Set org-roam directory
-(setq org-roam-directory "~/roam")
+(setq org-roam-directory "~/dev/my/roam")
 
 ;;;
 ;; Capture floating frame
