@@ -129,7 +129,7 @@
        ;;taskrunner        ; taskrunner for all your projects
        ;;terraform         ; infrastructure as code
        ;;tmux              ; an API for interacting with tmux
-       tree-sitter         ;
+       ;; tree-sitter         ;
        ;;upload            ; map local to remote projects via ssh/ftp
 
        :os
@@ -141,8 +141,8 @@
        ;;agda              ; types of types of types of types...
        ;;assembly          ; assembly for fun or debugging
        (cc                 ; C/C++/Obj-C madness
-        +lsp
-        +tree-sitter)
+        +lsp)
+       ;;  +tree-sitter)
        ;;beancount         ; mind the GAAP
        ;;clojure           ; java with a lisp
        ;;common-lisp       ; if you've seen one lisp, you've seen them all
@@ -168,9 +168,10 @@
        ;;hy                ; readability of scheme w/ speed of python
        ;;idris             ; a language you can depend on
        json                ; At least it ain't XML
-       (java               ; the poster child for carpal tunnel syndrome
-        +lsp
-        +tree-sitter)
+       java
+       ;;(java               ; the poster child for carpal tunnel syndrome
+       ;; +lsp
+       ;; +tree-sitter)
        (javascript +lsp)   ; all(hope(abandon(ye(who(enter(here))))))
        ;;julia             ; a better, faster MATLAB
        ;;kotlin            ; a better, slicker Java(Script)
