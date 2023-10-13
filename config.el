@@ -655,3 +655,13 @@
       (set-variable 'org-hide-emphasis-markers nil)
     (set-variable 'org-hide-emphasis-markers t))
   (org-mode-restart))
+
+;; Allow selecting the catppuccin flavor
+(defun lgreen/select-catppuccin-flavor ()
+  "Select and apply a catppuccin flavor."
+  (interactive)
+  (let* ((flavors '("mocha" "macchiato" "latte" "frappe"))
+         (flavor (completing-read "Choose a catppuccin flavor: " flavors nil t)))
+    (setq catppuccin-flavor (intern flavor))
+    (catppuccin-reload)
+    (message "Switched to %s flavor" flavor)))
