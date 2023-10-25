@@ -94,6 +94,7 @@
 
 ;; Set projects directory
 (setq projectile-project-search-path '(("~/dev/" . 5)))
+(setq projectile-per-project-compilation-buffer t)
 
 ;; If you want to change the style of line numbers, change this to `relative' or
 ;; `nil' to disable it:
