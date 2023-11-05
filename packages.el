@@ -97,3 +97,4 @@
 (package! dired-narrow)
 (package! catppuccin-theme)
 (package! toml-mode)
+(package! fennel-mode :recipe (:host github :repo "emacsmirror/fennel-mode"))

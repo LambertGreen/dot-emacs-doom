@@ -5,10 +5,10 @@
 
 ;; Setup Homebrew related settings
 (when (eq system-type 'darwin)
-    (defvar homebrew-prefix)
-    (if (file-directory-p "/opt/homebrew/")
-        (setq homebrew-prefix "/opt/homebrew/")
-        (setq homebrew-prefix "/usr/local/")))
+  (defvar homebrew-prefix)
+  (if (file-directory-p "/opt/homebrew/")
+      (setq homebrew-prefix "/opt/homebrew/")
+    (setq homebrew-prefix "/usr/local/")))
 
 (when (eq system-type 'gnu/linux)
   (defvar homebrew-prefix)
@@ -94,6 +94,7 @@
 
 ;; Set projects directory
 (setq projectile-project-search-path '(("~/dev/" . 5)))
+(setq projectile-per-project-compilation-buffer t)
 
 ;; If you want to change the style of line numbers, change this to `relative' or
 ;; `nil' to disable it:
@@ -111,7 +112,7 @@
                               (scroll-up 1)))
   (defun track-mouse (_))
   (setq mouse-sel-mode t)
-)
+  )
 
 ;; Here are some additional functions/macros that could help you configure Doom:
 ;;
@@ -260,38 +261,38 @@
 
   ;; Update the default Doom "todo" to use TODO instead of [ ]
   (setq org-capture-templates
-    '(("t" "todo" entry
-      (file+headline +org-capture-todo-file "Inbox")
-      "* TODO %?\n:PROPERTIES:\n:CREATED: %U\n:FROM: %a\n:END:\n" :prepend t)
-    ("n" "notes" entry
-      (file+headline +org-capture-notes-file "Inbox")
-      "* %u %?\n:PROPERTIES:\n:CREATED: %U\n:FROM: %a\n:END:\n" :prepend t)
-    ("m" "email" entry
-      (file+olp +org-capture-todo-file "Inbox")
-      "* TODO Mail:%u %?\n%i\n%a" :prepend t)
-    ("j" "Journal" entry
-      (file+olp+datetree +org-capture-journal-file)
-      "* %U %?\n%i\n%a" :prepend t)
-    ("p" "Protocol" entry
-      (file+headline +org-capture-notes-file "Inbox")
-      "* %? [[%:link][%:description]] \nCaptured On: %U\n #+BEGIN_QUOTE\n%i\n#+END_QUOTE\n\n\n%?")
-    ("L" "Protocol Link" entry
-      (file+headline +org-capture-notes-file "Inbox")
-      "* %? [[%:link][%:description]] \nCaptured On: %U")
-    ("P" "Templates for projects")
-    ("Pt" "Project-local todo" entry
-      (file+headline +org-capture-project-todo-file "Inbox")
-      "* TODO %?\n%i\n%a" :prepend t)
-    ("Pn" "Project-local notes" entry
-      (file+headline +org-capture-project-notes-file "Inbox")
-      "* %U %?\n%i\n%a" :prepend t)
-    ("Pc" "Project-local changelog" entry
-      (file+headline +org-capture-project-changelog-file "Unreleased")
-      "* %U %?\n%i\n%a" :prepend t)
-    ("o" "Centralized templates for projects")
-    ("ot" "Project todo" entry #'+org-capture-central-project-todo-file "* TODO %?\n %i\n %a" :heading "Tasks" :prepend nil)
-    ("on" "Project notes" entry #'+org-capture-central-project-notes-file "* %U %?\n %i\n %a" :heading "Notes" :prepend t)
-    ("oc" "Project changelog" entry #'+org-capture-central-project-changelog-file "* %U %?\n %i\n %a" :heading "Changelog" :prepend t)))
+        '(("t" "todo" entry
+           (file+headline +org-capture-todo-file "Inbox")
+           "* TODO %?\n:PROPERTIES:\n:CREATED: %U\n:FROM: %a\n:END:\n" :prepend t)
+          ("n" "notes" entry
+           (file+headline +org-capture-notes-file "Inbox")
+           "* %u %?\n:PROPERTIES:\n:CREATED: %U\n:FROM: %a\n:END:\n" :prepend t)
+          ("m" "email" entry
+           (file+olp +org-capture-todo-file "Inbox")
+           "* TODO Mail:%u %?\n%i\n%a" :prepend t)
+          ("j" "Journal" entry
+           (file+olp+datetree +org-capture-journal-file)
+           "* %U %?\n%i\n%a" :prepend t)
+          ("p" "Protocol" entry
+           (file+headline +org-capture-notes-file "Inbox")
+           "* %? [[%:link][%:description]] \nCaptured On: %U\n #+BEGIN_QUOTE\n%i\n#+END_QUOTE\n\n\n%?")
+          ("L" "Protocol Link" entry
+           (file+headline +org-capture-notes-file "Inbox")
+           "* %? [[%:link][%:description]] \nCaptured On: %U")
+          ("P" "Templates for projects")
+          ("Pt" "Project-local todo" entry
+           (file+headline +org-capture-project-todo-file "Inbox")
+           "* TODO %?\n%i\n%a" :prepend t)
+          ("Pn" "Project-local notes" entry
+           (file+headline +org-capture-project-notes-file "Inbox")
+           "* %U %?\n%i\n%a" :prepend t)
+          ("Pc" "Project-local changelog" entry
+           (file+headline +org-capture-project-changelog-file "Unreleased")
+           "* %U %?\n%i\n%a" :prepend t)
+          ("o" "Centralized templates for projects")
+          ("ot" "Project todo" entry #'+org-capture-central-project-todo-file "* TODO %?\n %i\n %a" :heading "Tasks" :prepend nil)
+          ("on" "Project notes" entry #'+org-capture-central-project-notes-file "* %U %?\n %i\n %a" :heading "Notes" :prepend t)
+          ("oc" "Project changelog" entry #'+org-capture-central-project-changelog-file "* %U %?\n %i\n %a" :heading "Changelog" :prepend t)))
 
   ;; Disable spell check for org-tables
   (defadvice org-mode-flyspell-verify (after org-mode-flyspell-verify-hack activate)
@@ -350,21 +351,21 @@
 (eval-after-load 'flyspell '(define-key flyspell-mode-map "\M-\t" nil))
 
 ;; Function to set transparency of emacs
- (defun lgreen/transparency (value)
-   "Sets the transparency of the frame window. 0=transparent/100=opaque"
-   (interactive "nTransparency Value 0 - 100 opaque:")
-   (set-frame-parameter (selected-frame) 'alpha value))
+(defun lgreen/transparency (value)
+  "Sets the transparency of the frame window. 0=transparent/100=opaque"
+  (interactive "nTransparency Value 0 - 100 opaque:")
+  (set-frame-parameter (selected-frame) 'alpha value))
 
 ;; Workaround ripgrep issue on Windows
 (when (eq system-type 'windows-nt)
-    (setq ripgrep-arguments '("--path-separator /")))
+  (setq ripgrep-arguments '("--path-separator /")))
 
 ;; Influence Tramp to use a login shell so that ~/.profile is sourced on remote
 ;; host resulting in $PATH being setup correctly.
 ;;
 (after! tramp
   (add-to-list 'tramp-remote-path 'tramp-own-remote-path)
-)
+  )
 
 ;; macOS: Change dark/light theme
 (when (eq system-type 'darwin)
@@ -408,11 +409,11 @@
 ;; Set path to clangd (required when using clangd as cpp lsp)
 (when (eq system-type 'darwin)
   (setq lsp-clangd-binary-path "/Library/Developer/CommandLineTools/usr/bin/clangd" ))
-  ;; (setq lsp-clients-clangd-executable "/Library/Developer/CommandLineTools/usr/bin/clangd "))
+;; (setq lsp-clients-clangd-executable "/Library/Developer/CommandLineTools/usr/bin/clangd "))
 
 (when (eq system-type 'gnu/linux)
   (setq lsp-clangd-binary-path (concat homebrew-prefix "Cellar/llvm@14/14.0.6/bin/clangd")))
-  ;; (setq lsp-clients-clangd-executable lsp-clangd-binary-path))
+;; (setq lsp-clients-clangd-executable lsp-clangd-binary-path))
 
 ;; macOS: Set locate to use unix locate command instead of `mdfind` because `mdfind` is not indexing
 ;; all dev files.
@@ -655,3 +656,13 @@
       (set-variable 'org-hide-emphasis-markers nil)
     (set-variable 'org-hide-emphasis-markers t))
   (org-mode-restart))
+
+;; Allow selecting the catppuccin flavor
+(defun lgreen/select-catppuccin-flavor ()
+  "Select and apply a catppuccin flavor."
+  (interactive)
+  (let* ((flavors '("mocha" "macchiato" "latte" "frappe"))
+         (flavor (completing-read "Choose a catppuccin flavor: " flavors nil t)))
+    (setq catppuccin-flavor (intern flavor))
+    (catppuccin-reload)
+    (message "Switched to %s flavor" flavor)))
