@@ -97,3 +97,4 @@
 (package! dired-narrow)
 (package! catppuccin-theme)
 (package! fennel-mode :recipe (:host github :repo "emacsmirror/fennel-mode"))
+(package! justl :recipe (:host github :repo "psibi/justl.el"))
