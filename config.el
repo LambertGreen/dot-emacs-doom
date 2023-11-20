@@ -666,3 +666,9 @@
     (setq catppuccin-flavor (intern flavor))
     (catppuccin-reload)
     (message "Switched to %s flavor" flavor)))
+
+
+;; Just files
+;; TODO: Is this config needed? We disable it because it
+;; uses up a valuable binding i.e.`e'
+;; (use-package! justl)
