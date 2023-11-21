@@ -45,8 +45,8 @@
      ))
 (if (eq system-type 'darwin)
     (setq
-     doom-font (font-spec :family "Iosevka Nerd Font" :size 13)
-     doom-unicode-font (font-spec :family "Iosevka Nerd Font")
+     doom-font (font-spec :family "Iosevka Nerd Font Mono" :size 13)
+     doom-unicode-font (font-spec :family "Iosevka Nerd Font Mono")
      doom-variable-pitch-font (font-spec :family "Iosevka Nerd Font Propo" :size 18)
      ))
 (if (eq system-type 'windows-nt)
@@ -666,3 +666,9 @@
     (setq catppuccin-flavor (intern flavor))
     (catppuccin-reload)
     (message "Switched to %s flavor" flavor)))
+
+
+;; Just files
+;; TODO: Is this config needed? We disable it because it
+;; uses up a valuable binding i.e.`e'
+;; (use-package! justl)
