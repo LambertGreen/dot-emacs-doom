@@ -96,5 +96,6 @@
 (package! org-contrib)
 (package! dired-narrow)
 (package! catppuccin-theme)
+(package! toml-mode)
 (package! fennel-mode :recipe (:host github :repo "emacsmirror/fennel-mode"))
 (package! justl :recipe (:host github :repo "psibi/justl.el"))

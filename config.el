@@ -564,11 +564,11 @@
   (setq auto-revert-check-vc-info t))
 
 ;; TODO Get TreeSitter working again when they have published aarm64 binaries
-(unless (string-match-p (rx string-start "aarch64-") system-configuration)
-  (use-package! tree-sitter :config
-                (require 'tree-sitter-langs)
-                (global-tree-sitter-mode)
-                (add-hook 'tree-sitter-after-on-hook #'tree-sitter-hl-mode)))
+;; (unless (string-match-p (rx string-start "aarch64-") system-configuration)
+;;   (use-package! tree-sitter :config
+;;                 (require 'tree-sitter-langs)
+;;                 (global-tree-sitter-mode)
+;;                 (add-hook 'tree-sitter-after-on-hook #'tree-sitter-hl-mode)))
 
 ;; On macOS use the mdfind command instead of the locate command
 ;; TODO Move this configuration into Doom's Vertico.el to use `consult--customize` and submit a PR
