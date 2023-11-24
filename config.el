@@ -672,3 +672,16 @@
 ;; TODO: Is this config needed? We disable it because it
 ;; uses up a valuable binding i.e.`e'
 ;; (use-package! justl)
+
+;; Count lines across folds
+(defun lgreen/count-visible-lines (start end)
+  "Count the number of visible lines in the region."
+  (interactive "r")
+  (save-excursion
+    (goto-char start)
+    (let ((count 0))
+      (while (< (point) end)
+        (unless (invisible-p (point))
+          (setq count (1+ count)))
+        (forward-line 1))
+      (message "Number of visible lines: %d" count))))
