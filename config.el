@@ -685,3 +685,11 @@
           (setq count (1+ count)))
         (forward-line 1))
       (message "Number of visible lines: %d" count))))
+
+(after! lsp-clangd
+  (setq lsp-clients-clangd-args '("--background-index"
+                                  "--clang-tidy"
+                                  "--completion-style=detailed"
+                                  "--header-insertion=iwyu"
+                                  "--header-insertion-decorators=0"))
+  (setq lsp-clangd-binary-path "/opt/homebrew/opt/llvm/bin/clangd"))
