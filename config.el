@@ -515,10 +515,15 @@
 (setq-default indent-tabs-mode nil)
 
 ;; Make comments and code keywords italics
+;; TODO Make finaly decision on what to do using italics for comments and syntax
+;; Note: although I have commented out this block, I am still getting italics
+;; for comments and syntax!
+;;
 ;; Update (7/24/23): Looks like this is working fine with Wezterm as the terminal
-(custom-set-faces!
-  '(font-lock-comment-face :slant italic)
-  '(font-lock-keyword-face :slant italic))
+;; Update (21/21/23): Don't do italics for keywords as it will make the pipe (`|`) look
+;; like a division character.
+;; (custom-set-faces!
+;;   '(font-lock-comment-face :slant italic))
 
 ;; In terminal mode make code comment more readable
 ;; TODO consider removing.
