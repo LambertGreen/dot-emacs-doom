@@ -301,6 +301,12 @@
     (when (and ad-return-value (org-table-p))
       (setq ad-return-value nil)))
 
+  ;; Always have a new line at end of Org files
+  ;; BUG We are trying to get newlines at the end of source blocks
+  ;; and the end of the file to have better looking highlighting
+  ;; but it does not seem to be working.
+  (add-hook 'org-mode-hook (lambda () (setq require-final-newline t)))
+
   ;; Make org-mode tables pretty
   (add-hook 'org-mode-hook (lambda () (org-pretty-table-mode)))
 
@@ -701,3 +707,22 @@
                                   "--completion-style=detailed"
                                   "--header-insertion=iwyu")))
 
+
+;; BUG We are trying to fix org-babel source code block highlighting
+;; but thus far nothing is working.
+;;
+;; Fix org-babel source blocks to always have a newline afterwards
+;; so that the code block background color does not end up showing
+;; on ancestor folded headings
+(defun lgreen/add-newline-end-of-babel-blocks ()
+  (interactive)
+  (when (and (derived-mode-p 'org-mode)
+             (save-excursion
+               (goto-char (point-min))
+               (search-forward "#+end_src" nil t)))
+    (save-excursion
+      (goto-char (point-max))
+      (unless (looking-at "^")
+        (insert "\n")))))
+
+(add-hook 'before-save-hook #'lgreen/add-newline-end-of-babel-blocks)
