@@ -100,3 +100,4 @@
 (package! fennel-mode :recipe (:host github :repo "emacsmirror/fennel-mode"))
 (package! just-mode)
 (package! justl :recipe (:host github :repo "psibi/justl.el"))
+(package! jq-mode)

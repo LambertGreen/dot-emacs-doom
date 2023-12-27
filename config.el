@@ -726,3 +726,9 @@
         (insert "\n")))))
 
 (add-hook 'before-save-hook #'lgreen/add-newline-end-of-babel-blocks)
+
+(after! jq-mode
+  (add-to-list 'auto-mode-alist '("\\.jq\\'" . jq-mode))
+  ;; Add jq for org-babel
+  (org-babel-do-load-languages 'org-babel-load-languages
+                               '((jq . t))))
