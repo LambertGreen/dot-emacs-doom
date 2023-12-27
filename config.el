@@ -98,7 +98,8 @@
 
 ;; If you want to change the style of line numbers, change this to `relative' or
 ;; `nil' to disable it:
-(setq display-line-numbers-type t)
+;; TODO Make final decision on whether to use line numbers by default or not
+;; (setq display-line-numbers-type 'relative)
 
 ;; Enable mouse support in terminal
 (unless window-system
