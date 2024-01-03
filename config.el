@@ -536,13 +536,6 @@
 (global-undo-tree-mode)
 (add-hook `evil-local-mode-hook `turn-on-undo-tree-mode)
 
-;; BUG We should not need the below. Docs say one can set JENV_ROOT
-;; so lets see if we can get rid of needing the below
-(when (eq system-type 'gnu/linux)
-  (setq jenv-installation-dir "/home/linuxbrew/.linuxbrew/bin/"))
-(when (eq system-type 'darwin)
-  (setq jenv-installation-dir "/usr/local/bin/"))
-
 ;; TODO See if there is a safer option than this
 (setq-default enable-local-variables t)
 
