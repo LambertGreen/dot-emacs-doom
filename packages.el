@@ -81,7 +81,7 @@
 (package! devdocs :recipe (:host github :repo "astoff/devdocs.el"))
 (package! org-vcard)
                                         ; TODO: Running into issues with 'org-contacts' so disabling for now
-(package! org-contacts)
+;; (package! org-contacts)
 (package! systemd-mode)
 (package! strace-mode)
 (package! dot-mode :recipe (:host github :repo "wyrickre/dot-mode"))
@@ -98,4 +98,6 @@
 (package! catppuccin-theme)
 (package! toml-mode)
 (package! fennel-mode :recipe (:host github :repo "emacsmirror/fennel-mode"))
+(package! just-mode)
 (package! justl :recipe (:host github :repo "psibi/justl.el"))
+(package! jq-mode)

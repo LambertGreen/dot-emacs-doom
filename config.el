@@ -98,7 +98,8 @@
 
 ;; If you want to change the style of line numbers, change this to `relative' or
 ;; `nil' to disable it:
-(setq display-line-numbers-type t)
+;; TODO Make final decision on whether to use line numbers by default or not
+;; (setq display-line-numbers-type 'relative)
 
 ;; Enable mouse support in terminal
 (unless window-system
@@ -195,11 +196,12 @@
 (after! org
   ;; Use org-contacts for managing contacts and getting birthday's in the agenda
   ;; TODO Running into issues with 'org-contacts' during Doom setup and startup
-  (use-package! org-contacts
-    :config (setq org-contacts-files '("~/dev/my/org/contacts.org")))
+  ;; (use-package! org-contacts
+  ;;   :config (setq org-contacts-files '("~/dev/my/org/contacts.org")))
 
   ;; Load habits
   (add-to-list 'org-modules 'org-habit)
+
 
   ;; Setup org-checklist
   ;; This package enables the auto-reseting of checkbox state for repeating items.
@@ -298,6 +300,12 @@
   (defadvice org-mode-flyspell-verify (after org-mode-flyspell-verify-hack activate)
     (when (and ad-return-value (org-table-p))
       (setq ad-return-value nil)))
+
+  ;; Always have a new line at end of Org files
+  ;; BUG We are trying to get newlines at the end of source blocks
+  ;; and the end of the file to have better looking highlighting
+  ;; but it does not seem to be working.
+  (add-hook 'org-mode-hook (lambda () (setq require-final-newline t)))
 
   ;; Make org-mode tables pretty
   (add-hook 'org-mode-hook (lambda () (org-pretty-table-mode)))
@@ -514,10 +522,15 @@
 (setq-default indent-tabs-mode nil)
 
 ;; Make comments and code keywords italics
+;; TODO Make finaly decision on what to do using italics for comments and syntax
+;; Note: although I have commented out this block, I am still getting italics
+;; for comments and syntax!
+;;
 ;; Update (7/24/23): Looks like this is working fine with Wezterm as the terminal
-(custom-set-faces!
-  '(font-lock-comment-face :slant italic)
-  '(font-lock-keyword-face :slant italic))
+;; Update (21/21/23): Don't do italics for keywords as it will make the pipe (`|`) look
+;; like a division character.
+;; (custom-set-faces!
+;;   '(font-lock-comment-face :slant italic))
 
 ;; In terminal mode make code comment more readable
 ;; TODO consider removing.
@@ -678,3 +691,37 @@
           (setq count (1+ count)))
         (forward-line 1))
       (message "Number of visible lines: %d" count))))
+
+(after! lsp-clangd
+  ;; TODO Fix hardcoded path
+  (setq lsp-clangd-binary-path "/opt/homebrew/opt/llvm/bin/clangd")
+  (setq lsp-clients-clangd-args '("--background-index"
+                                  "--clang-tidy"
+                                  "--completion-style=detailed"
+                                  "--header-insertion=iwyu")))
+
+
+;; BUG We are trying to fix org-babel source code block highlighting
+;; but thus far nothing is working.
+;;
+;; Fix org-babel source blocks to always have a newline afterwards
+;; so that the code block background color does not end up showing
+;; on ancestor folded headings
+(defun lgreen/add-newline-end-of-babel-blocks ()
+  (interactive)
+  (when (and (derived-mode-p 'org-mode)
+             (save-excursion
+               (goto-char (point-min))
+               (search-forward "#+end_src" nil t)))
+    (save-excursion
+      (goto-char (point-max))
+      (unless (looking-at "^")
+        (insert "\n")))))
+
+(add-hook 'before-save-hook #'lgreen/add-newline-end-of-babel-blocks)
+
+(after! jq-mode
+  (add-to-list 'auto-mode-alist '("\\.jq\\'" . jq-mode))
+  ;; Add jq for org-babel
+  (org-babel-do-load-languages 'org-babel-load-languages
+                               '((jq . t))))
