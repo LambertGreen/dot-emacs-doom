@@ -101,3 +101,7 @@
 (package! just-mode)
 (package! justl :recipe (:host github :repo "psibi/justl.el"))
 (package! jq-mode)
+
+;; Following instructions are from org-roam-ui github repo
+(unpin! org-roam)
+(package! org-roam-ui)
