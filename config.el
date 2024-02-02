@@ -93,7 +93,7 @@
 (setq org-agenda-files (directory-files-recursively org-directory "\\.org$"))
 
 ;; Set projects directory
-(setq projectile-project-search-path '(("~/dev/" . 5)))
+(setq projectile-project-search-path '(("~/dev/" . 10)))
 (setq projectile-per-project-compilation-buffer t)
 
 ;; If you want to change the style of line numbers, change this to `relative' or
@@ -549,13 +549,6 @@
 (global-undo-tree-mode)
 (add-hook `evil-local-mode-hook `turn-on-undo-tree-mode)
 
-;; BUG We should not need the below. Docs say one can set JENV_ROOT
-;; so lets see if we can get rid of needing the below
-(when (eq system-type 'gnu/linux)
-  (setq jenv-installation-dir "/home/linuxbrew/.linuxbrew/bin/"))
-(when (eq system-type 'darwin)
-  (setq jenv-installation-dir "/usr/local/bin/"))
-
 ;; TODO See if there is a safer option than this
 (setq-default enable-local-variables t)
 
@@ -618,7 +611,7 @@
   )
 
 ;; Set org-roam directory
-(setq org-roam-directory "~/dev/my/roam")
+(setq org-roam-directory "~/dev/my/org/roam")
 
 ;;;
 ;; Capture floating frame

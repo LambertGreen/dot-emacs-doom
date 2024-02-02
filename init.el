@@ -31,6 +31,22 @@
 ;; level to showing a warning to ":error".
 (setq warning-minimum-level :error)
 
+;; Tidy up env vars and load only the required.
+(after! doom-cli-env
+  (when noninteractive
+    (setq doom-env-deny '("^.*"))
+    (setq doom-env-allow '("^EDITOR$"
+                           "^VISUAL$"
+                           "^SHELL$"
+                           "^PATH$"
+                           "^MANPATH$"
+                           "^LANG$"
+                           "^LC_ALL$"
+                           "^SSH_AUTH_SOCK$"
+                           ;; xdg
+                           "^XDG_.*$"
+                           ))))
+
 (doom! :input
        ;;chinese
        ;;japanese
