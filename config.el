@@ -611,7 +611,7 @@
   )
 
 ;; Set org-roam directory
-(setq org-roam-directory "~/dev/my/roam")
+(setq org-roam-directory "~/dev/my/org/roam")
 
 ;;;
 ;; Capture floating frame
