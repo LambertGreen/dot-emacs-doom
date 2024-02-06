@@ -685,3 +685,19 @@
           (setq count (1+ count)))
         (forward-line 1))
       (message "Number of visible lines: %d" count))))
+;; Don't automatically start the Java LSP
+;; (use-package! lsp-java
+;;   :config
+;;   (setq lsp-auto-guess-root nil
+;;         lsp-java-autobuild-enabled nil))
+
+;; (after! lsp-java
+;;   (setq lsp-auto-guess-root nil)
+;;   (setq lsp-enable-on-type-formatting nil)
+;;   (setq lsp-java-vmargs
+;;         '("-noverify"
+;;           "-Xmx2G"  ; Adjust the maximum heap size (e.g., 1G, 2G)
+;;           "-XX:+UseG1GC"
+;;           "-XX:+UseStringDeduplication"
+;;           )))
+
