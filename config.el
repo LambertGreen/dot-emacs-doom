@@ -741,3 +741,50 @@
                 org-roam-ui-follow t
                 org-roam-ui-update-on-save t
                 org-roam-ui-open-on-start t))
+
+;; Enable `format-all-mode' for these specific modes
+(add-hook 'c++-mode-hook #'format-all-mode)
+(add-hook 'python-mode-hook #'format-all-mode)
+
+;; Don't automatically start the Java LSP
+;; (use-package! lsp-java
+;;   :config
+;;   (setq lsp-auto-guess-root nil
+;;         lsp-java-autobuild-enabled nil))
+
+;; (after! lsp-java
+;;   (setq lsp-auto-guess-root nil)
+;;   (setq lsp-enable-on-type-formatting nil)
+;;   (setq lsp-java-vmargs
+;;         '("-noverify"
+;;           "-Xmx2G"  ; Adjust the maximum heap size (e.g., 1G, 2G)
+;;           "-XX:+UseG1GC"
+;;           "-XX:+UseStringDeduplication"
+;;           )))
+
+(defvar lgreen/checkstyle-properties-path ""
+  "Path to the Checkstyle properties file.")
+
+(defvar lgreen/checkstyle-config-path ""
+  "Path to the Checkstyle configuration file.")
+
+(use-package! flycheck
+  :config
+  (flycheck-define-checker java-checkstyle
+    "A Java style checker using Checkstyle."
+    :command ("checkstyle"
+              "-p" (eval lgreen/checkstyle-properties-path)
+              "-c" (eval lgreen/checkstyle-config-path)
+              source)
+    :error-patterns
+    ((error line-start (file-name) ":" line ":" column ": " (message) line-end))
+    :modes java-mode)
+  (add-to-list 'flycheck-checkers 'java-checkstyle))
+
+;; Format Java similar to Intellij
+(add-hook 'java-mode-hook (lambda ()
+                            (setq c-default-style "java")
+                            (c-set-offset 'arglist-intro '+)
+                            (c-set-offset 'arglist-close '0)
+                            (c-set-offset 'case-label '+)
+                            ))

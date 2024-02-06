@@ -91,7 +91,7 @@
        (evil +everywhere); come to the dark side, we have cookies
        file-templates    ; auto-snippets for empty files
        fold              ; (nigh) universal code folding
-       (format +onsave)  ; automated prettiness
+       format            ; automated prettiness
        ;;god             ; run Emacs commands without modifier keys
        ;;lispy           ; vim for lisp, for people who don't like vim
        multiple-cursors  ; editing in many places at once
@@ -185,7 +185,6 @@
        ;;idris             ; a language you can depend on
        json                ; At least it ain't XML
        (java               ; the poster child for carpal tunnel syndrome
-        +lsp
         +tree-sitter)
        (javascript +lsp)   ; all(hope(abandon(ye(who(enter(here))))))
        ;;julia             ; a better, faster MATLAB
