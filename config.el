@@ -762,6 +762,9 @@
 ;;           "-XX:+UseStringDeduplication"
 ;;           )))
 
+(defvar lgreen/dev-directory-base-path (expand-file-name "~/dev/")
+  "Base path to the development directory.")
+
 (defvar lgreen/checkstyle-properties-path ""
   "Path to the Checkstyle properties file.")
 
