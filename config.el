@@ -791,3 +791,10 @@
                             (c-set-offset 'arglist-close '0)
                             (c-set-offset 'case-label '+)
                             ))
+
+(defun lgreen/set-java-home-from-jenv ()
+  "Set JAVA_HOME environment variable from jenv."
+  (interactive)
+  (let ((jenv-java-home (shell-command-to-string "jenv prefix")))
+    (when (not (string= jenv-java-home ""))
+      (setenv "JAVA_HOME" (replace-regexp-in-string "\n+$" "" jenv-java-home)))))
