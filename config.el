@@ -773,9 +773,9 @@
   (flycheck-define-checker java-checkstyle
     "A Java style checker using Checkstyle."
     :command ("checkstyle"
-              "-p" (eval lgreen/checkstyle-properties-path)
-              "-c" (eval lgreen/checkstyle-config-path)
-              source)
+              "-p" (eval (expand-file-name lgreen/checkstyle-properties-path))
+              "-c" (eval (expand-file-name lgreen/checkstyle-config-path))
+              source-original)
     :error-patterns
     ((error line-start (file-name) ":" line ":" column ": " (message) line-end))
     :modes java-mode)
