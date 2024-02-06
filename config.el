@@ -685,6 +685,12 @@
           (setq count (1+ count)))
         (forward-line 1))
       (message "Number of visible lines: %d" count))))
+
+
+;; Enable `format-all-mode' for these specific modes
+(add-hook 'c++-mode-hook #'format-all-mode)
+(add-hook 'python-mode-hook #'format-all-mode)
+
 ;; Don't automatically start the Java LSP
 ;; (use-package! lsp-java
 ;;   :config
