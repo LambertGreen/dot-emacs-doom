@@ -707,3 +707,29 @@
 ;;           "-XX:+UseStringDeduplication"
 ;;           )))
 
+(defvar lgreen/checkstyle-properties-path ""
+  "Path to the Checkstyle properties file.")
+
+(defvar lgreen/checkstyle-config-path ""
+  "Path to the Checkstyle configuration file.")
+
+(use-package! flycheck
+  :config
+  (flycheck-define-checker java-checkstyle
+    "A Java style checker using Checkstyle."
+    :command ("checkstyle"
+              "-p" (eval lgreen/checkstyle-properties-path)
+              "-c" (eval lgreen/checkstyle-config-path)
+              source)
+    :error-patterns
+    ((error line-start (file-name) ":" line ":" column ": " (message) line-end))
+    :modes java-mode)
+  (add-to-list 'flycheck-checkers 'java-checkstyle))
+
+;; Format Java similar to Intellij
+(add-hook 'java-mode-hook (lambda ()
+                            (setq c-default-style "java")
+                            (c-set-offset 'arglist-intro '+)
+                            (c-set-offset 'arglist-close '0)
+                            (c-set-offset 'case-label '+)
+                            ))
