@@ -20,8 +20,9 @@
     (normal-top-level-add-subdirs-to-load-path)))
 
 ;; Add Homebrew Info to Info path
-(when (eq system-type 'darwin)
-  (add-to-list `Info-directory-list (concat homebrew-prefix "share/info/")))
+;; TODO: Doom is complaining that `Info-directory-list' does not exist
+;; (when (eq system-type 'darwin)
+;;   (add-to-list `Info-directory-list (concat homebrew-prefix "share/info/")))
 
 ;; Some functionality uses this to identify you, e.g. GPG configuration, email
 ;; clients, file templates and snippets.
